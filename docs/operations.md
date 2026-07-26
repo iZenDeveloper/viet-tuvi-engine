@@ -52,4 +52,6 @@ npm run check:release
 
 It verifies npm, runtime, MCP, and Python version parity; package entrypoints;
 the Python JavaScript snapshot; the WASM integrity manifest; MIT licensing;
-and the npm tarball contents. It does not create a tag or publish a package.
+and the npm tarball contents. It also installs the tarball in an isolated
+temporary consumer project and runs the public imports and binaries. It does
+not create a tag or publish a package.

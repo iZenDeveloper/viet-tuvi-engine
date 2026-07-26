@@ -25,6 +25,8 @@
   bundles, and validated all thirty-six public comparison cases against it.
 - Upgraded the fixture comparison CLI with schema validation, bundle support,
   stable JSON summaries, and distinct mismatch versus invalid-input exits.
+- Added an isolated tarball consumer smoke covering package subpaths, schemas,
+  WASM execution, CLI, and MCP binaries before release.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping
