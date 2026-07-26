@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viet-tuvi-engine.dev/schemas/chart-0.1.0.json",
+  "title": "Tu Vi Chart",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["input", "palaces", "stars", "cuc", "metadata", "audit", "timeline", "relations", "facts", "warnings"],
+  "properties": {
+    "input": {
+      "type": "object",
+      "required": ["localDateTime", "timezoneOffsetMinutes", "gender"],
+      "properties": {
+        "localDateTime": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}"},
+        "timezoneOffsetMinutes": {"type": "integer", "minimum": -840, "maximum": 840},
+        "gender": {"enum": ["male", "female"]},
+        "tradition": {"enum": ["vietnamese", "trung-chau", "custom"]},
+        "asOfYear": {"type": "integer", "minimum": 1, "maximum": 9999}
+      }
+    },
+    "palaces": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["code", "nameVi", "index", "branch", "isMenh", "isThan", "stars"],
+        "properties": {
+          "code": {"type": "string"}, "nameVi": {"type": "string"},
+          "index": {"type": "integer", "minimum": 0, "maximum": 11},
+          "branch": {"type": "string"}, "isMenh": {"type": "boolean"},
+          "isThan": {"type": "boolean"}, "stars": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "stars": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["code", "nameVi", "kind", "palaceIndex"],
+        "properties": {
+          "code": {"type": "string"}, "nameVi": {"type": "string"},
+          "kind": {"enum": ["major", "auxiliary", "transformation"]},
+          "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11},
+          "element": {"enum": ["thuy", "moc", "kim", "tho", "hoa"]},
+          "yinYang": {"enum": ["yin", "yang"]},
+          "group": {"type": "string"}
+        }
+      }
+    },
+    "cuc": {
+      "type": "object", "additionalProperties": false,
+      "required": ["code", "nameVi", "element", "number"],
+      "properties": {
+        "code": {"type": "string"}, "nameVi": {"type": "string"},
+        "element": {"enum": ["thuy", "moc", "kim", "tho", "hoa"]},
+        "number": {"enum": [2, 3, 4, 5, 6]}
+      }
+    },
+    "metadata": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine", "version", "schemaVersion", "ruleSetVersion", "methodology", "calculatedAt", "capabilities", "sources"],
+      "properties": {
+        "engine": {"const": "viet-tuvi-engine"},
+        "version": {"type": "string"}, "schemaVersion": {"type": "string"},
+        "ruleSetVersion": {"type": "string"}, "methodology": {"type": "string"},
+        "calculatedAt": {"type": "string", "format": "date-time"},
+        "capabilities": {"type": "array", "items": {"type": "string"}},
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["url", "role"],
+            "properties": {
+              "url": {"type": "string", "format": "uri"},
+              "role": {"enum": ["implemented-rule", "reference-only", "comparison-oracle"]}
+            }
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["rule", "value", "source", "version"],
+        "properties": {
+          "rule": {"type": "string"}, "value": {"type": "string"},
+          "source": {"type": "string"}, "version": {"type": "string"}
+        }
+      }
+    },
+    "timeline": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "daiHan": {
+          "type": "array", "minItems": 12, "maxItems": 12,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["startAge", "endAge", "palaceIndex"],
+            "properties": {
+              "startAge": {"type": "integer"}, "endAge": {"type": "integer"},
+              "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11}
+            }
+          }
+        },
+        "tieuHan": {"$ref": "#/$defs/tieuHan"},
+        "luuNien": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/yearLimit"}
+        },
+        "luuNguyet": {"$ref": "#/$defs/monthLimit"},
+        "luuNhat": {"$ref": "#/$defs/dayLimit"}
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["code", "type", "from", "to"],
+        "properties": {
+          "code": {"type": "string", "pattern": "^relation\\."},
+          "type": {"enum": ["xung", "tam-hop", "luc-hop", "chieu"]},
+          "from": {"type": "integer", "minimum": 0, "maximum": 11},
+          "to": {"type": "integer", "minimum": 0, "maximum": 11}
+        }
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["code", "text", "evidence"],
+        "properties": {
+          "code": {"type": "string"},
+          "text": {
+            "type": "object", "additionalProperties": false,
+            "required": ["vi", "en"],
+            "properties": {"vi": {"type": "string"}, "en": {"type": "string"}}
+          },
+          "evidence": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["code", "message", "severity"],
+        "properties": {
+          "code": {"type": "string"},
+          "severity": {"enum": ["info", "warning"]},
+          "message": {
+            "type": "object", "additionalProperties": false,
+            "required": ["vi", "en"],
+            "properties": {"vi": {"type": "string"}, "en": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "phiHoa": {
+      "type": "array", "minItems": 48, "maxItems": 48,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["code", "sourcePalaceIndex", "targetPalaceIndex", "sourceStem", "starCode", "transformation"],
+        "properties": {
+          "code": {"type": "string", "pattern": "^phi-hoa\\."},
+          "sourcePalaceIndex": {"type": "integer", "minimum": 0, "maximum": 11},
+          "targetPalaceIndex": {"type": "integer", "minimum": 0, "maximum": 11},
+          "sourceStem": {"type": "string"},
+          "starCode": {"type": "string"},
+          "transformation": {"enum": ["loc", "quyen", "khoa", "ky"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "yearLimit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["year", "palaceIndex"],
+      "properties": {
+        "year": {"type": "integer"},
+        "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    },
+    "tieuHan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["year", "nominalAge", "palaceIndex"],
+      "properties": {
+        "year": {"type": "integer"}, "nominalAge": {"type": "integer", "minimum": 1},
+        "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    },
+    "monthLimit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["asOfDate", "lunarMonth", "palaceIndex"],
+      "properties": {
+        "asOfDate": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "lunarMonth": {"type": "integer", "minimum": 1, "maximum": 12},
+        "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    },
+    "dayLimit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["asOfDate", "lunarDay", "palaceIndex"],
+      "properties": {
+        "asOfDate": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "lunarDay": {"type": "integer", "minimum": 1, "maximum": 30},
+        "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    }
+  }
+}

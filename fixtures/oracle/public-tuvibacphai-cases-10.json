@@ -1,0 +1,877 @@
+{
+  "classification": "comparison-oracle",
+  "source": {
+    "name": "An sao Trung Châu Lý Số",
+    "url": "https://tuvibacphai.com/tuvi/",
+    "retrievedAt": "2026-07-26",
+    "method": "public-browser-render-capture"
+  },
+  "calculatorOptions": {
+    "calendar": "solar",
+    "tuHoa": "kham-thien-mon",
+    "hoaLinh": "tcp-thuan",
+    "chartMode": "default"
+  },
+  "cases": [
+    {
+      "id": "1980-03-12-male",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1980-03-12T02:15:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "male",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "hoa-luc-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Sửu",
+            "isMenh": true
+          },
+          {
+            "index": 2,
+            "branch": "Mão",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 9
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 1
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 4
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 6
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 6
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 7
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 9
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 10
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 11
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 3
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1981-04-23-female",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1981-04-23T05:20:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "female",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "tho-ngu-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Sửu",
+            "isMenh": true
+          },
+          {
+            "index": 6,
+            "branch": "Mùi",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 3
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 7
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 10
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 2
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 0
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 1
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 2
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 4
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 5
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 9
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1982-06-14-male",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1982-06-14T08:25:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "male",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "moc-tam-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Sửu",
+            "isMenh": true
+          },
+          {
+            "index": 8,
+            "branch": "Dậu",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 7
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 2
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 4
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 6
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 7
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 8
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 9
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 10
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 0
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 1
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 5
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1983-07-25-female",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1983-07-25T10:30:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "female",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "thuy-nhi-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Dần",
+            "isMenh": true
+          },
+          {
+            "index": 10,
+            "branch": "Tý",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 7
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 2
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 4
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 6
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 6
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 7
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 9
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 10
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 11
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 3
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1985-09-05-male",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1985-09-05T13:35:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "male",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "hoa-luc-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Sửu",
+            "isMenh": true
+          },
+          {
+            "index": 2,
+            "branch": "Mão",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 1
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 8
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 9
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 10
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 1
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 2
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 3
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 4
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 6
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 7
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 11
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1986-10-16-female",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1986-10-16T15:40:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "female",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "moc-tam-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Dần",
+            "isMenh": true
+          },
+          {
+            "index": 4,
+            "branch": "Ngọ",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 6
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 10
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 1
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 2
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 6
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 7
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 8
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 9
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 10
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 11
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 0
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 4
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1987-12-27-male",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1987-12-27T17:45:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "male",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "kim-tu-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Mão",
+            "isMenh": true
+          },
+          {
+            "index": 6,
+            "branch": "Dậu",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 11
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 6
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 7
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 10
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 0
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 1
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 2
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 4
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 5
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 9
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1988-01-18-female",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1988-01-18T20:50:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "female",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "kim-tu-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Dần",
+            "isMenh": true
+          },
+          {
+            "index": 8,
+            "branch": "Tuất",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 4
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 11
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 1
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 3
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 9
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 10
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 11
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 1
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 2
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 6
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1989-02-28-male",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1989-02-28T22:55:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "male",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "hoa-luc-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Mão",
+            "isMenh": true
+          },
+          {
+            "index": 10,
+            "branch": "Sửu",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 1
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 8
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 9
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 10
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 9
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 10
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 11
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 1
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 2
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 3
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 7
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    },
+    {
+      "id": "1991-03-09-female",
+      "expectedEngineMatch": true,
+      "input": {
+        "localDateTime": "1991-03-09T11:10:00",
+        "timezoneOffsetMinutes": 420,
+        "gender": "female",
+        "tradition": "vietnamese"
+      },
+      "expected": {
+        "cuc": {
+          "code": "hoa-luc-cuc"
+        },
+        "palaces": [
+          {
+            "index": 0,
+            "branch": "Thân",
+            "isMenh": true
+          },
+          {
+            "index": 0,
+            "branch": "Thân",
+            "isThan": true
+          }
+        ],
+        "stars": [
+          {
+            "code": "tu-vi",
+            "palaceIndex": 8
+          },
+          {
+            "code": "liem-trinh",
+            "palaceIndex": 0
+          },
+          {
+            "code": "thien-dong",
+            "palaceIndex": 3
+          },
+          {
+            "code": "vu-khuc",
+            "palaceIndex": 4
+          },
+          {
+            "code": "thai-duong",
+            "palaceIndex": 5
+          },
+          {
+            "code": "thien-co",
+            "palaceIndex": 7
+          },
+          {
+            "code": "thien-phu",
+            "palaceIndex": 4
+          },
+          {
+            "code": "thai-am",
+            "palaceIndex": 5
+          },
+          {
+            "code": "tham-lang",
+            "palaceIndex": 6
+          },
+          {
+            "code": "cu-mon",
+            "palaceIndex": 7
+          },
+          {
+            "code": "thien-tuong",
+            "palaceIndex": 8
+          },
+          {
+            "code": "thien-luong",
+            "palaceIndex": 9
+          },
+          {
+            "code": "that-sat",
+            "palaceIndex": 10
+          },
+          {
+            "code": "pha-quan",
+            "palaceIndex": 2
+          }
+        ]
+      },
+      "expectedDiffPaths": []
+    }
+  ]
+}

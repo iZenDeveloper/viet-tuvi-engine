@@ -1,0 +1,6 @@
+[
+  {"solar":[22,1,2023],"lunar":{"day":1,"month":1,"year":2023,"leap":false}},
+  {"solar":[10,2,2024],"lunar":{"day":1,"month":1,"year":2024,"leap":false}},
+  {"solar":[29,1,2025],"lunar":{"day":1,"month":1,"year":2025,"leap":false}},
+  {"solar":[17,2,2026],"lunar":{"day":1,"month":1,"year":2026,"leap":false}}
+]

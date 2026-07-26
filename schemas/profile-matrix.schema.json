@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viet-tuvi-engine.dev/schemas/profile-matrix-0.1.0.json",
+  "type": "object",
+  "required": ["profiles"],
+  "properties": {
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["profileId", "name", "status", "doNotUseAsDefault"],
+        "properties": {
+          "profileId": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "minLength": 1},
+          "roleInSources": {"type": "string"},
+          "evidenceInNotebook": {"type": "object"},
+          "doNotUseAsDefault": {"type": "boolean"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

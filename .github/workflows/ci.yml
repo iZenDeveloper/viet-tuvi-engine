@@ -1,0 +1,54 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  node:
+    strategy:
+      matrix:
+        node: [20, 22]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm pack --dry-run
+
+  python-binding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npm run build
+      - name: Smoke test Python binding
+        env:
+          PYTHONPATH: bindings/python
+        run: |
+          python - <<'PY'
+          from viet_tuvi_engine import calculate, capabilities, grounded_prompt, render_svg, timeline
+          input_data = {
+              "localDateTime": "1990-05-17T14:30:00",
+              "timezoneOffsetMinutes": 420,
+              "gender": "female",
+              "asOfYear": 2026,
+          }
+          chart = calculate(input_data)
+          assert len(chart["palaces"]) == 12
+          assert capabilities()["engine"] == "viet-tuvi-engine"
+          assert len(timeline(input_data)["timeline"]["daiHan"]) == 12
+          assert grounded_prompt(chart)["evidence"]["engine"] == "viet-tuvi-engine"
+          assert "<svg" in render_svg(chart)
+          PY

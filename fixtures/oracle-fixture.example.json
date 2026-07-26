@@ -1,0 +1,17 @@
+{
+  "input": {
+    "localDateTime": "1990-05-17T14:30:00",
+    "timezoneOffsetMinutes": 420,
+    "gender": "female",
+    "tradition": "vietnamese"
+  },
+  "expected": {
+    "cuc": {"code": "replace-with-oracle-cuc"},
+    "palaces": [
+      {"index": 0, "branch": "replace-with-oracle-menh-branch"}
+    ],
+    "stars": [
+      {"code": "tu-vi", "palaceIndex": 0}
+    ]
+  }
+}

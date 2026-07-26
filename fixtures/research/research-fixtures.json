@@ -1,0 +1,1352 @@
+[
+  {
+    "id": "research-001",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "giap-ty",
+      "lunarMonth": 1,
+      "lunarMonthBranch": "dan",
+      "lunarDay": 12,
+      "birthHourBranch": "ngo",
+      "gender": "male",
+      "elementPhase": 2
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Kim Biện Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 9,
+        "branch": "Thân (9)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 3,
+        "branch": "Dần (3)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-002",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "at-suu",
+      "lunarMonth": 2,
+      "lunarMonthBranch": "mao",
+      "lunarDay": 17,
+      "birthHourBranch": "ty",
+      "gender": "female",
+      "elementPhase": 5
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Trần Lâm Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 4,
+        "branch": "Mão (4)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 4,
+        "branch": "Mão (4)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 1,
+        "branch": "Tý (1)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-003",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "binh-dan",
+      "lunarMonth": 3,
+      "lunarMonthBranch": "thin",
+      "lunarDay": 22,
+      "birthHourBranch": "suu",
+      "gender": "male",
+      "elementPhase": 6
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Cảnh Chương Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 4,
+        "branch": "Mão (4)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 5,
+        "branch": "Thìn (5)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-004",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "dinh-mao",
+      "lunarMonth": 4,
+      "lunarMonthBranch": "ti",
+      "lunarDay": 1,
+      "birthHourBranch": "than",
+      "gender": "female",
+      "elementPhase": 3
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Trầm Hưng Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 10,
+        "branch": "Dậu (10)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 3,
+        "branch": "Dần (3)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-005",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "mau-thin",
+      "lunarMonth": 5,
+      "lunarMonthBranch": "ngo",
+      "lunarDay": 19,
+      "birthHourBranch": "dau",
+      "gender": "male",
+      "elementPhase": 4
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Triệu Đạt Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 10,
+        "branch": "Dậu (10)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 4,
+        "branch": "Mão (4)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-006",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "ky-ty",
+      "lunarMonth": 6,
+      "lunarMonthBranch": "mui",
+      "lunarDay": 25,
+      "birthHourBranch": "hoi",
+      "gender": "female",
+      "elementPhase": 2
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Quách Xán Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 9,
+        "branch": "Thân (9)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 8,
+        "branch": "Mùi (8)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 12,
+        "branch": "Hợi (12)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-007",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "canh-ngo",
+      "lunarMonth": 7,
+      "lunarMonthBranch": "than",
+      "lunarDay": 8,
+      "birthHourBranch": "ty",
+      "gender": "male",
+      "elementPhase": 6
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Vương Thanh Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 9,
+        "branch": "Thân (9)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 9,
+        "branch": "Thân (9)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-008",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "tan-mui",
+      "lunarMonth": 8,
+      "lunarMonthBranch": "dau",
+      "lunarDay": 14,
+      "birthHourBranch": "dan",
+      "gender": "female",
+      "elementPhase": 3
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Lý Tố Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 8,
+        "branch": "Mùi (8)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 10,
+        "branch": "Dậu (10)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 4,
+        "branch": "Mão (4)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-009",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "nham-than",
+      "lunarMonth": 9,
+      "lunarMonthBranch": "tuat",
+      "lunarDay": 29,
+      "birthHourBranch": "mao",
+      "gender": "male",
+      "elementPhase": 5
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Lưu Vượng Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 8,
+        "branch": "Mùi (8)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 11,
+        "branch": "Tuất (11)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 5,
+        "branch": "Thìn (5)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-010",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "quy-dau",
+      "lunarMonth": 10,
+      "lunarMonthBranch": "hoi",
+      "lunarDay": 3,
+      "birthHourBranch": "thin",
+      "gender": "female",
+      "elementPhase": 4
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Khang Chí Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 8,
+        "branch": "Mùi (8)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 12,
+        "branch": "Hợi (12)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 12,
+        "branch": "Hợi (12)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-011",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "giap-tuat",
+      "lunarMonth": 11,
+      "lunarMonthBranch": "ty",
+      "lunarDay": 11,
+      "birthHourBranch": "ngo",
+      "gender": "male",
+      "elementPhase": 2
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Thi Quảng Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 1,
+        "branch": "Tý (1)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 5,
+        "branch": "Thìn (5)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-012",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "at-hoi",
+      "lunarMonth": 12,
+      "lunarMonthBranch": "suu",
+      "lunarDay": 21,
+      "birthHourBranch": "mui",
+      "gender": "female",
+      "elementPhase": 5
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Nhậm Bảo Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 2,
+        "branch": "Sửu (2)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 9,
+        "branch": "Thân (9)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-013",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "binh-ty",
+      "lunarMonth": 1,
+      "lunarMonthBranch": "dan",
+      "lunarDay": 15,
+      "birthHourBranch": "than",
+      "gender": "male",
+      "elementPhase": 6
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Quách Gia Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 3,
+        "branch": "Dần (3)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 12,
+        "branch": "Hợi (12)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-014",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "dinh-suu",
+      "lunarMonth": 2,
+      "lunarMonthBranch": "mao",
+      "lunarDay": 6,
+      "birthHourBranch": "dau",
+      "gender": "female",
+      "elementPhase": 3
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Uông Văn Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 4,
+        "branch": "Mão (4)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 2,
+        "branch": "Sửu (2)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-015",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "mau-dan",
+      "lunarMonth": 3,
+      "lunarMonthBranch": "thin",
+      "lunarDay": 28,
+      "birthHourBranch": "tuat",
+      "gender": "male",
+      "elementPhase": 4
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Tằng Quang Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 5,
+        "branch": "Thìn (5)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-016",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "ky-mao",
+      "lunarMonth": 4,
+      "lunarMonthBranch": "ti",
+      "lunarDay": 2,
+      "birthHourBranch": "hoi",
+      "gender": "female",
+      "elementPhase": 2
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Long Trọng Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 1,
+        "branch": "Tý (1)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-017",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "canh-thin",
+      "lunarMonth": 5,
+      "lunarMonthBranch": "ngo",
+      "lunarDay": 30,
+      "birthHourBranch": "ty",
+      "gender": "male",
+      "elementPhase": 6
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Đổng Đức Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 5,
+        "branch": "Thìn (5)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-018",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "tan-ty",
+      "lunarMonth": 6,
+      "lunarMonthBranch": "mui",
+      "lunarDay": 9,
+      "birthHourBranch": "suu",
+      "gender": "female",
+      "elementPhase": 3
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Trịnh Đãn Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 8,
+        "branch": "Mùi (8)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 3,
+        "branch": "Dần (3)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-019",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "nham-ngo",
+      "lunarMonth": 7,
+      "lunarMonthBranch": "than",
+      "lunarDay": 18,
+      "birthHourBranch": "dan",
+      "gender": "male",
+      "elementPhase": 5
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Lục Minh Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 9,
+        "branch": "Thân (9)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-020",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "quy-mui",
+      "lunarMonth": 8,
+      "lunarMonthBranch": "dau",
+      "lunarDay": 24,
+      "birthHourBranch": "mao",
+      "gender": "female",
+      "elementPhase": 4
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Ngụy Nhân Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 10,
+        "branch": "Dậu (10)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-021",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "giap-than",
+      "lunarMonth": 9,
+      "lunarMonthBranch": "tuat",
+      "lunarDay": 13,
+      "birthHourBranch": "thin",
+      "gender": "male",
+      "elementPhase": 2
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Phương Tra Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 7,
+        "branch": "Ngọ (7)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 11,
+        "branch": "Tuất (11)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-022",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "at-dau",
+      "lunarMonth": 10,
+      "lunarMonthBranch": "hoi",
+      "lunarDay": 7,
+      "birthHourBranch": "ngo",
+      "gender": "female",
+      "elementPhase": 5
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Tưởng Sùng Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 12,
+        "branch": "Hợi (12)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 11,
+        "branch": "Tuất (11)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-023",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "binh-tuat",
+      "lunarMonth": 11,
+      "lunarMonthBranch": "ty",
+      "lunarDay": 5,
+      "birthHourBranch": "mui",
+      "gender": "male",
+      "elementPhase": 6
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Bạch Mẫn Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 1,
+        "branch": "Tý (1)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 12,
+        "branch": "Hợi (12)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-024",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "dinh-hoi",
+      "lunarMonth": 12,
+      "lunarMonthBranch": "suu",
+      "lunarDay": 20,
+      "birthHourBranch": "than",
+      "gender": "female",
+      "elementPhase": 3
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Phong Tế Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 2,
+        "branch": "Sửu (2)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  },
+  {
+    "id": "research-025",
+    "profile": "unattributed-secondary",
+    "input": {
+      "yearCanChi": "mau-ty",
+      "lunarMonth": 1,
+      "lunarMonthBranch": "dan",
+      "lunarDay": 27,
+      "birthHourBranch": "dau",
+      "gender": "male",
+      "elementPhase": 4
+    },
+    "observations": {
+      "taiSuiGeneral": {
+        "value": "Trâu Thang Đại Tướng Quân",
+        "status": "observed",
+        "sourceRefs": [
+          "src-01"
+        ]
+      },
+      "mingGongPosition": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "shenGongPosition": {
+        "value": 3,
+        "branch": "Dần (3)",
+        "status": "derived",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "ziWeiPositionRule1": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      },
+      "ziWeiPositionRule2": {
+        "value": 6,
+        "branch": "Tị (6)",
+        "status": "conflict-candidate",
+        "sourceRefs": [
+          "src-11"
+        ]
+      },
+      "cuc": {
+        "value": null,
+        "status": "unresolved_due_to_missing_source_data"
+      }
+    }
+  }
+]

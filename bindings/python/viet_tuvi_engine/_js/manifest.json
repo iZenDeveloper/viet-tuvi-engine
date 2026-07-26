@@ -1,0 +1,9 @@
+{
+  "engineVersion": "0.1.0",
+  "sha256": {
+    "calendar.js": "c3db1874a16e255e88f6014343723b7d05bf963a385ee02073c7eedc77fbdbc7",
+    "index.js": "c1b870a97fc165b5fd7de076794b047b521146f2e571ccbf3ab6fed975fa6b0d",
+    "cli.js": "52b0394902c0d1ec84ed7af74c5d3f297f42b48682490675dbac27bd3d4cfc00",
+    "mcp-server.js": "5b7ec48215e7c4425acea8423713a331e08d86a75414846de28984d64b902928"
+  }
+}

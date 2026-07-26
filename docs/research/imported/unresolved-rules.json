@@ -1,0 +1,97 @@
+{
+  "unresolvedRules": [
+    {
+      "ruleId": "zi-wei.position-conflict",
+      "name": "Mâu thuẫn định vị chính tinh Tử Vi",
+      "status": "conflict-unresolved",
+      "authority": "secondary-source",
+      "ruleIds": [
+        "zi-wei.month-hour",
+        "zi-wei.day-cuc"
+      ],
+      "doNotUseAsDefault": true,
+      "description": "Hai tài liệu thứ cấp trong nguồn cung cấp hai thuật toán hoàn toàn khác nhau để tính vị trí sao Tử Vi.",
+      "details": {
+        "rule1_month_hour": {
+          "source": "src-10 (Grokipedia - Zi Wei Dou Shu)",
+          "formula_male": "(base_index_from_lunar_month + hour_index) % 12",
+          "formula_female": "(base_index_from_lunar_month - hour_index + 12) % 12",
+          "notes": "Công thức này dựa hoàn toàn vào Tháng sinh âm lịch và Giờ sinh âm lịch, bỏ qua hoàn toàn Ngày sinh âm lịch và Ngũ Hành Cục. Đồng thời nguồn không định nghĩa 'base_index_from_lunar_month' và 'hour_index' chi tiết."
+        },
+        "rule2_day_cuc": {
+          "source": "src-11 (Ziwei - Grokipedia)",
+          "formula": "(Birth Day + X) / Element Phase = Y",
+          "notes": "Dựa trên Ngày sinh âm lịch và Ngũ Hành Cục (Element Phase). Có công thức chuyển đổi Z dựa trên số dư X và thương số Y, bắt đầu từ cung Dần là vị trí số 1 đếm thuận."
+        }
+      }
+    },
+    {
+      "ruleId": "cuc.calculation-missing",
+      "name": "Thiếu thuật toán tính Ngũ Hành Cục",
+      "status": "missing-source-data",
+      "authority": "primary-gap",
+      "description": "Để chạy Quy tắc 2 của sao Tử Vi, cần có Ngũ Hành Cục (Water 2, Wood 3, Metal 4, Earth 5, Fire 6) của bản mệnh.",
+      "details": {
+        "source": "src-11 (Ziwei - Grokipedia)",
+        "gap": "Nguồn đề cập đến sự tồn tại của Ngũ Hành Cục và giá trị số của chúng (Water 2, Wood 3, v.v.), nhưng hoàn toàn không giải thích cách tính hoặc cách tra bảng để tìm ra Cục từ Thiên can/Địa chi của năm sinh và cung vị Mệnh."
+      }
+    },
+    {
+      "ruleId": "major-stars.position-missing",
+      "name": "Thiếu thuật toán an 13 chính tinh còn lại",
+      "status": "missing-source-data",
+      "authority": "primary-gap",
+      "description": "Công thức xác định vị trí của 13 chính tinh phò tá Tử Vi hoàn toàn không được cung cấp chi tiết.",
+      "details": {
+        "source": "src-11 (Ziwei - Grokipedia)",
+        "gap": "Nguồn chỉ ghi nhận chung chung: 'Tian Fu đối xứng với Tử Vi qua trục mệnh bàn' (không định nghĩa trục cụ thể) và các sao khác như Thiên Cơ, Thái Dương v.v. 'đi theo các nhánh từ Tử Vi' nhưng không có công thức hay khoảng cách lệch (offsets) cụ thể."
+      }
+    },
+    {
+      "ruleId": "transformers.clash",
+      "name": "Xung đột định nghĩa Tứ Hóa",
+      "status": "concept-clash-unresolved",
+      "authority": "secondary-source",
+      "description": "Hai tài liệu thứ cấp định nghĩa khác nhau về hệ thống Bốn Hóa Tượng (Four Transformers).",
+      "details": {
+        "traditional": {
+          "source": "src-06 (Nghiên Cứu Hệ Thống Trung Châu)",
+          "definitions": [
+            "Hóa Lộc (Prosperity)",
+            "Hóa Quyền (Power)",
+            "Hóa Khoa (Fame/Achievement)",
+            "Hóa Kỵ (Obstacles)"
+          ],
+          "notes": "Hệ thống Tứ Hóa truyền thống liên quan đến việc bay qua các thiên can năm sinh."
+        },
+        "ithy_specific": {
+          "source": "src-02 (Ithy)",
+          "definitions": [
+            "Tian Ji (Cơ chế thiên thể)",
+            "Yuan (Tiềm năng bẩm sinh)",
+            "Xing (Cách thể hiện bên ngoài)",
+            "Liu (Dòng chảy thời gian)"
+          ],
+          "notes": "Đây là một cách gọi độc quyền của tài liệu Ithy, hoàn toàn khác biệt với định nghĩa học thuật Trung Châu."
+        }
+      }
+    },
+    {
+      "ruleId": "palace-sequence.direction-conflict",
+      "name": "Xung đột chiều an 12 cung",
+      "status": "conflict-unresolved",
+      "authority": "secondary-source",
+      "description": "Sự khác biệt trong việc xác định chiều sắp xếp 12 cung chức năng trên địa bàn.",
+      "details": {
+        "clockwise": {
+          "source": "src-05 (Imperial Harvest)",
+          "statement": "The sequence begins with the Life Palace and continues in a clockwise direction. (Bắt đầu từ cung Mệnh và tiếp tục theo chiều kim đồng hồ)."
+        },
+        "counter_clockwise": {
+          "source": "src-11 (Ziwei - Grokipedia)",
+          "statement": "Ming, Siblings, Marriage, Children, Wealth... arranged in counter-clockwise sequence. (Sắp xếp theo chiều nghịch kim đồng hồ bắt đầu từ Mệnh, Huynh Đệ, Phu Thê, Tử Nữ...)"
+        }
+      }
+    }
+  ]
+}

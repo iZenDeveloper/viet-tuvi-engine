@@ -1,0 +1,100 @@
+{
+  "analysis_title": "Zi Wei Dou Shu Wu Xing Ju Calculation Algorithm — Independent Technical Literature Review",
+  "author": "Independent Technical Reviewer",
+  "date": "2026-07-26",
+  "summary": "The Wu Xing Ju (Five Element Bureau) is the number 2, 3, 4, 5, or 6 assigned to a Zi Wei Dou Shu chart. It is the primary input (along with the day stem) for determining the placement of the Zi Wei star. This review identifies three candidate derivation rules: (C/D) Life Palace Na Yin — the classical, primary-source method; (A) Birth Year Na Yin — a calculator-observed simplification; (B) direct element of the Life Palace — an unresolved hypothesis. The differences among Na Yin, natal element, Life Palace element, and the Wu Xing Ju number are clarified in the definitions section.",
+  "definitions": {
+    "Na_Yin": "The 'absorbed sound' five element assigned to each of the 60 stem-branch pairs. It is a synthesized elemental quality, not simply the sum of the stem and branch elements.",
+    "natal_element": "Typically refers to the day stem element, which represents the self in many fate calculation systems. Not used for Wu Xing Ju.",
+    "Life_Palace_element": "Can be ambiguous. The classical Wu Xing Ju uses the Na Yin of the Life Palace stem-branch pair. If 'Life Palace element' means the stem's element or branch's element directly, it differs from Na Yin.",
+    "Wu_Xing_Ju_number": "The bureau number (2,3,4,5,6) mapped from the Na Yin element: Water→2, Wood→3, Metal→4, Earth→5, Fire→6. It acts as the divisor/offset base for Zi Wei star placement."
+  },
+  "mapping_element_to_ju": {
+    "water": 2,
+    "wood": 3,
+    "metal": 4,
+    "earth": 5,
+    "fire": 6
+  },
+  "zi_wei_placement_formula": "Given Wu Xing Ju number n (2..6) and day stem index s (Jia=1,...,Gui=10), the Zi Wei star's earthly branch index (0=Zi, 1=Chou,..., 11=Hai) is: index = (s + 2*n - 3) mod 12. Example: n=4 (Metal), s=1 (Jia) → (1+8-3)=6 → Wu.",
+  "candidate_rules": [
+    {
+      "rule_id": "C_D_LifePalaceNaYin",
+      "derivation_source": ["C", "D"],
+      "description": "Wu Xing Ju is the Na Yin element of the Life Palace stem-branch pair, mapped to a number. This is the standard method in all classical primary sources. Lookup tables (D) directly encoding the 60 Jia Zi Na Yin are equivalent.",
+      "formula_or_lookup_table": {
+        "life_palace_calculation": "Life Palace branch index = (14 - month_branch_index - hour_branch_index) mod 12, where indices: Yin=3, Mao=4,..., Zi=1, Chou=2. Life Palace stem is assigned by Five Tiger Escape based on the year stem and the Life Palace branch. (Five Tiger Escape: year stem Jia/Ji → Yin month stem Bing; Yi/Geng → Wu; Bing/Xin → Geng; Ding/Ren → Ren; Wu/Gui → Jia.)",
+        "na_yin_lookup": "Full 60 Jia Zi Na Yin table (pairs sharing same element listed): 甲子/乙丑→金, 丙寅/丁卯→火, 戊辰/己巳→木, 庚午/辛未→土, 壬申/癸酉→金, 甲戌/乙亥→火, 丙子/丁丑→水, 戊寅/己卯→土, 庚辰/辛巳→金, 壬午/癸未→木, 甲申/乙酉→水, 丙戌/丁亥→土, 戊子/己丑→火, 庚寅/辛卯→木, 壬辰/癸巳→水, 甲午/乙未→金, 丙申/丁酉→火, 戊戌/己亥→木, 庚子/辛丑→土, 壬寅/癸卯→金, 甲辰/乙巳→火, 丙午/丁未→水, 戊申/己酉→土, 庚戌/辛亥→金, 壬子/癸丑→木, 甲寅/乙卯→水, 丙辰/丁巳→土, 戊午/己未→火, 庚申/辛酉→木, 壬戌/癸亥→水.",
+        "number_mapping": "Water→2, Wood→3, Metal→4, Earth→5, Fire→6."
+      },
+      "index_conventions": {
+        "heavenly_stems": "甲1,乙2,丙3,丁4,戊5,己6,庚7,辛8,壬9,癸10",
+        "earthly_branches": "子1,丑2,寅3,卯4,辰5,巳6,午7,未8,申9,酉10,戌11,亥12",
+        "month_branch_index": "寅=3 for first month of lunar year (adjust if solar-based)",
+        "hour_branch_index": "子时=1,丑时=2...亥时=12 (double-hour periods)"
+      },
+      "worked_examples": [
+        {"life_palace": "甲子", "na_yin": "金", "ju": 4},
+        {"life_palace": "乙丑", "na_yin": "金", "ju": 4},
+        {"life_palace": "丙寅", "na_yin": "火", "ju": 6},
+        {"life_palace": "丁卯", "na_yin": "火", "ju": 6},
+        {"life_palace": "戊辰", "na_yin": "木", "ju": 3},
+        {"life_palace": "己巳", "na_yin": "木", "ju": 3},
+        {"life_palace": "庚午", "na_yin": "土", "ju": 5},
+        {"life_palace": "辛未", "na_yin": "土", "ju": 5},
+        {"life_palace": "壬申", "na_yin": "金", "ju": 4},
+        {"life_palace": "癸酉", "na_yin": "金", "ju": 4},
+        {"life_palace": "甲戌", "na_yin": "火", "ju": 6},
+        {"life_palace": "乙亥", "na_yin": "火", "ju": 6}
+      ],
+      "school_profile": "Traditional San He (三合派) and all classical lineages. This is the universally accepted orthodox method.",
+      "source_edition": "Primary: 《紫微斗數全書》(Complete Book of Purple Star Astrology, Ming dynasty), 《十八飛星策天紫微斗數全集》, 《斗數宣微》. All editions reproduce the Na Yin table.",
+      "evidence_grade": "primary-source",
+      "effect_on_zi_wei_placement": "The derived n is plugged into the Zi Wei formula. A different Life Palace (due to different birth hour) yields a different Na Yin and thus a different n, shifting Zi Wei's starting palace and cascading all star placements."
+    },
+    {
+      "rule_id": "A_BirthYearNaYin",
+      "derivation_source": ["A"],
+      "description": "Wu Xing Ju is taken directly from the Na Yin of the birth year's stem-branch pair. This avoids computing the Life Palace and is found in some simplified modern tools.",
+      "formula_or_lookup_table": "Take the birth year pillar (e.g., 甲子) and apply the same Na Yin lookup and mapping as Rule C/D. No Life Palace involved.",
+      "index_conventions": "Same stem/branch indices and Na Yin table.",
+      "worked_examples": [
+        {"birth_year": "甲子", "na_yin": "金", "ju": 4},
+        {"birth_year": "乙丑", "na_yin": "金", "ju": 4},
+        {"birth_year": "丙寅", "na_yin": "火", "ju": 6},
+        {"birth_year": "丁卯", "na_yin": "火", "ju": 6},
+        {"birth_year": "戊辰", "na_yin": "木", "ju": 3},
+        {"birth_year": "己巳", "na_yin": "木", "ju": 3},
+        {"birth_year": "庚午", "na_yin": "土", "ju": 5},
+        {"birth_year": "辛未", "na_yin": "土", "ju": 5},
+        {"birth_year": "壬申", "na_yin": "金", "ju": 4},
+        {"birth_year": "癸酉", "na_yin": "金", "ju": 4},
+        {"birth_year": "甲戌", "na_yin": "火", "ju": 6}
+      ],
+      "school_profile": "Observed in some online ZWDS calculators and mobile apps targeting casual users; not attributable to any classical school.",
+      "source_edition": "Calculator-observed (e.g., certain versions of 'Zi Wei Dou Shu free online' tools that allow input without birth time). No textual source.",
+      "evidence_grade": "calculator-observed",
+      "effect_on_zi_wei_placement": "Same Zi Wei formula, but because the bureau is fixed for all persons born in the same year, it ignores the birth-hour-dependent Life Palace. This can place Zi Wei incorrectly relative to the orthodox method for a portion of charts, altering the entire star distribution."
+    },
+    {
+      "rule_id": "B_LifePalaceDirectElement",
+      "derivation_source": ["B"],
+      "description": "Hypothesis that the Wu Xing Ju is derived directly from the elemental attributes of the Life Palace's stem and branch (e.g., stem Wood + branch Water → Ju = ?). No known classical or modern authoritative source defines a consistent conversion rule. Any proposed mapping (e.g., use stem's element, branch's element, or a combination) lacks tradition and produces results that conflict with the Na Yin method.",
+      "formula_or_lookup_table": "No established formula. Possible speculative mappings: a) Use the stem's element: 甲/乙→Wood→3, 丙/丁→Fire→6, etc. b) Use the branch's element: 寅/卯→Wood→3, etc. c) Combine by mutual generation/overcoming. All are arbitrary and unsupported.",
+      "index_conventions": {
+        "stem_elements": "甲/乙=Wood, 丙/丁=Fire, 戊/己=Earth, 庚/辛=Metal, 壬/癸=Water",
+        "branch_elements": "寅/卯=Wood, 巳/午=Fire, 申/酉=Metal, 亥/子=Water, 辰/戌/丑/未=Earth"
+      },
+      "worked_examples": [
+        {"life_palace": "甲子", "stem": "Wood (ju 3)", "branch": "Water (ju 2)", "na_yin_ju": 4, "note": "No single answer; neither 2 nor 3 matches the classical 4."},
+        {"life_palace": "丙寅", "stem": "Fire (ju 6)", "branch": "Wood (ju 3)", "na_yin_ju": 6, "note": "Stem element happens to match Na Yin here but not consistently."},
+        {"life_palace": "戊辰", "stem": "Earth (ju 5)", "branch": "Earth (ju 5)", "na_yin_ju": 3, "note": "Both stem and branch give 5, but true Ju is Wood 3."}
+      ],
+      "school_profile": "No known school or credible text. Sometimes appears as a beginner's misunderstanding.",
+      "source_edition": "Unresolved; no primary or secondary source found.",
+      "evidence_grade": "unresolved",
+      "effect_on_zi_wei_placement": "Would yield an incorrect Ju number for most Life Palace combinations, leading to a completely displaced Zi Wei star and a chart that does not match the orthodox system."
+    }
+  ],
+  "conclusion": "The only textually and traditionally supported derivation of the Wu Xing Ju is from the Na Yin of the Life Palace (C/D). All classical primary sources (Ming dynasty editions) unanimously present the Na Yin lookup table. The birth-year Na Yin simplification (A) appears in some software but has no canonical basis. Direct element derivation (B) is not a documented method. For faithful implementation, the Life Palace must first be correctly calculated from month and hour branches, its stem assigned via Five Tiger Escape, and then the Na Yin obtained to retrieve the bureau number 2-6."
+}

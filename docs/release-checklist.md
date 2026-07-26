@@ -1,0 +1,19 @@
+# Release Checklist
+
+- [x] TypeScript strict build
+- [x] Node 20 and 22 CI matrix
+- [x] Calculation and invariant tests
+- [x] Calendar boundary and leap-month fixtures
+- [x] Draft 2020-12 schema conformance
+- [x] CLI and MCP smoke tests
+- [x] Python binding parity
+- [x] Standalone Python wheel bundles the JavaScript snapshot
+- [x] Browser demo desktop/mobile verification
+- [x] npm package dry-run
+- [x] Versioned audit and methodology manifest
+- [x] Provenance roles for external research
+- [x] Public-calculator comparison oracle with captured options and retrieval date
+- [ ] Expert-approved Trung Châu fixtures
+- [x] Real WASM calendar kernel and parity tests
+- [x] WASM SHA-256 integrity manifest
+- [ ] Git tag and npm publish

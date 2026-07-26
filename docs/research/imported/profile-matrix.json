@@ -1,0 +1,88 @@
+{
+  "profiles": [
+    {
+      "profileId": "vdc",
+      "name": "Vương Đình Chi",
+      "status": "documented-partial",
+      "roleInSources": "Đại sư khôi phục phái Trung Châu hiện đại tại Hồng Kông, hệ thống hóa và làm rõ thuyết 60 Tinh Hệ, loại bỏ yếu tố mê tín dị đoan. Thuyết Tam Hợp của ông được đánh giá là hoàn bị nhất.",
+      "evidenceInNotebook": {
+        "hasMentions": true,
+        "mentionedIn": [
+          "src-04",
+          "src-06",
+          "src-08",
+          "src-09",
+          "src-10"
+        ],
+        "specificWorks": [
+          "Trung Châu Vận Đoán",
+          "Vương Đình Chi Đàm Tinh (Quyển 1)",
+          "Phân Tích Bản Mệnh Bát Hỷ Lầu Sao Bản Cổ Quyết Và Cách Cục Đẩu Số"
+        ],
+        "algorithmicCompleteness": "Thấp - Tài liệu chỉ tập trung vào ý nghĩa triết học, biện chứng tinh diệu, tính chất sao và các cách cục, không có tài liệu gốc về công thức hay bảng tra an sao tọa độ đầy đủ."
+      },
+      "doNotUseAsDefault": true
+    },
+    {
+      "profileId": "nav",
+      "name": "Nguyễn Anh Vũ",
+      "status": "documented-partial",
+      "roleInSources": "Dịch giả/biên soạn người Việt, đóng vai trò chuyển ngữ và hệ thống hóa Đẩu Số phái Trung Châu thành hai dòng riêng biệt: Tam Hợp Phái (Nam Phái) và Tứ Hóa Phái (Bắc Phái).",
+      "evidenceInNotebook": {
+        "hasMentions": true,
+        "mentionedIn": [
+          "src-04",
+          "src-06",
+          "src-07"
+        ],
+        "specificWorks": [
+          "Trung Châu Tử Vi Đẩu Số - Tứ Hóa Phái (Bộ 2 Tập, NXB Hồng Đức 2018)",
+          "Trung Châu Tử Vi Đẩu Số - Tam Hợp Phái (Bộ 2 Tập, NXB Hồng Đức 2022)"
+        ],
+        "algorithmicCompleteness": "Thấp - Nguồn chỉ ghi danh mục chương sách và tóm tắt giới thiệu bản dịch, không chứa mã nguồn, thuật toán toán học hay bảng tra cứu an sao trực tiếp."
+      },
+      "doNotUseAsDefault": true
+    },
+    {
+      "profileId": "tcp",
+      "name": "Patrick Choo (TCP)",
+      "status": "documented-minimal",
+      "roleInSources": "Tác giả của cuốn sách tiếng Anh về Đẩu Số phục vụ độc giả phương Tây.",
+      "evidenceInNotebook": {
+        "hasMentions": true,
+        "mentionedIn": [
+          "src-03"
+        ],
+        "specificWorks": [
+          "Book 3: Zi Wei Chart: Zi Wei Dou Shu Divination (Kdp, 2024)"
+        ],
+        "algorithmicCompleteness": "Cực thấp - Chỉ nhắc tên sách và các ghi chú lịch sử cơ bản, không có bất kỳ thuật toán hay chi tiết phương pháp luận nào có thể lập trình."
+      },
+      "doNotUseAsDefault": true
+    },
+    {
+      "profileId": "vdttl",
+      "name": "Vân Đằng Thái Thứ Lang (VDTTL)",
+      "status": "not-in-sources",
+      "roleInSources": "Không xuất hiện trong bất kỳ tài liệu nguồn nào của Notebook.",
+      "evidenceInNotebook": {
+        "hasMentions": false,
+        "mentionedIn": [],
+        "specificWorks": [],
+        "algorithmicCompleteness": "Không có dữ liệu - Hoàn toàn không tồn tại dấu vết thông tin trong nguồn."
+      },
+      "doNotUseAsDefault": true
+    },
+    {
+      "profileId": "vn-popular-0.1",
+      "name": "Engine Popular Vietnamese (vietnamese)",
+      "status": "baseline-conformance",
+      "roleInSources": "Cấu hình chuẩn hóa hiện tại của hệ thống máy tính Việt Nam, không thay đổi dựa trên các nguồn thiếu hụt.",
+      "evidenceInNotebook": {
+        "hasMentions": false,
+        "note": "Giữ nguyên kết quả hiện hữu để bảo vệ tính conformance ổn định của engine."
+      },
+      "doNotUseAsDefault": false
+    }
+  ]
+}

@@ -1,0 +1,577 @@
+export const vietnamCities = [
+    { code: 'vn-hanoi', nameVi: 'Hà Nội', nameEn: 'Hanoi', latitude: 21.0278, longitude: 105.8342, timezoneOffsetMinutes: 420 },
+    { code: 'vn-ho-chi-minh', nameVi: 'TP. Hồ Chí Minh', nameEn: 'Ho Chi Minh City', latitude: 10.8231, longitude: 106.6297, timezoneOffsetMinutes: 420 },
+    { code: 'vn-da-nang', nameVi: 'Đà Nẵng', nameEn: 'Da Nang', latitude: 16.0544, longitude: 108.2022, timezoneOffsetMinutes: 420 },
+    { code: 'vn-hai-phong', nameVi: 'Hải Phòng', nameEn: 'Hai Phong', latitude: 20.8449, longitude: 106.6881, timezoneOffsetMinutes: 420 },
+    { code: 'vn-can-tho', nameVi: 'Cần Thơ', nameEn: 'Can Tho', latitude: 10.0452, longitude: 105.7469, timezoneOffsetMinutes: 420 },
+    { code: 'vn-hue', nameVi: 'Huế', nameEn: 'Hue', latitude: 16.4637, longitude: 107.5909, timezoneOffsetMinutes: 420 },
+    { code: 'vn-nha-trang', nameVi: 'Nha Trang', nameEn: 'Nha Trang', latitude: 12.2388, longitude: 109.1967, timezoneOffsetMinutes: 420 },
+    { code: 'vn-da-lat', nameVi: 'Đà Lạt', nameEn: 'Da Lat', latitude: 11.9404, longitude: 108.4583, timezoneOffsetMinutes: 420 },
+    { code: 'vn-vung-tau', nameVi: 'Vũng Tàu', nameEn: 'Vung Tau', latitude: 10.4114, longitude: 107.1362, timezoneOffsetMinutes: 420 },
+    { code: 'vn-buon-ma-thuot', nameVi: 'Buôn Ma Thuột', nameEn: 'Buon Ma Thuot', latitude: 12.6667, longitude: 108.05, timezoneOffsetMinutes: 420 }
+];
+const normalizeCity = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/đ/g, 'd').replace(/[^a-z0-9]/g, '');
+export function listVietnamCities() { return vietnamCities.map(city => ({ ...city })); }
+function findCity(value) { if (!value)
+    return undefined; const key = normalizeCity(value); return vietnamCities.find(c => [c.code, c.nameVi, c.nameEn].some(v => normalizeCity(v) === key) || (['tphcm', 'hcmc'].includes(key) && c.code === 'vn-ho-chi-minh')); }
+const branches = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+const palaceNames = ['Mệnh', 'Phụ Mẫu', 'Phúc Đức', 'Điền Trạch', 'Quan Lộc', 'Nô Bộc', 'Thiên Di', 'Tật Ách', 'Tài Bạch', 'Tử Tức', 'Phu Thê', 'Huynh Đệ'];
+const majors = [
+    ['tu-vi', 'Tử Vi'], ['thien-co', 'Thiên Cơ'], ['thai-duong', 'Thái Dương'], ['vu-khuc', 'Vũ Khúc'],
+    ['thien-dong', 'Thiên Đồng'], ['liem-trinh', 'Liêm Trinh'], ['thien-phu', 'Thiên Phủ'], ['thai-am', 'Thái Âm'],
+    ['tham-lang', 'Tham Lang'], ['cu-mon', 'Cự Môn'], ['thien-tuong', 'Thiên Tướng'], ['thien-luong', 'Thiên Lương'],
+    ['that-sat', 'Thất Sát'], ['pha-quan', 'Phá Quân']
+];
+const majorMetadata = {
+    'tu-vi': { element: 'tho', yinYang: 'yin', group: 'tu-vi' }, 'thien-co': { element: 'moc', yinYang: 'yin', group: 'tu-vi' },
+    'thai-duong': { element: 'hoa', yinYang: 'yang', group: 'tu-vi' }, 'vu-khuc': { element: 'kim', yinYang: 'yin', group: 'tu-vi' },
+    'thien-dong': { element: 'thuy', yinYang: 'yang', group: 'tu-vi' }, 'liem-trinh': { element: 'hoa', yinYang: 'yin', group: 'tu-vi' },
+    'thien-phu': { element: 'tho', yinYang: 'yang', group: 'thien-phu' }, 'thai-am': { element: 'thuy', yinYang: 'yin', group: 'thien-phu' },
+    'tham-lang': { element: 'thuy', yinYang: 'yang', group: 'thien-phu' }, 'cu-mon': { element: 'thuy', yinYang: 'yin', group: 'thien-phu' },
+    'thien-tuong': { element: 'thuy', yinYang: 'yang', group: 'thien-phu' }, 'thien-luong': { element: 'moc', yinYang: 'yang', group: 'thien-phu' },
+    'that-sat': { element: 'kim', yinYang: 'yang', group: 'thien-phu' }, 'pha-quan': { element: 'thuy', yinYang: 'yin', group: 'thien-phu' }
+};
+export function listMajorStars() { return majors.map(([code, nameVi]) => ({ code, nameVi, ...majorMetadata[code] })); }
+function tuViBranch(lunarDay, cuc) {
+    let extra = 0;
+    while ((lunarDay + extra) % cuc !== 0)
+        extra++;
+    const quotient = (lunarDay + extra) / cuc;
+    return ((2 + quotient + (extra % 2 === 0 ? extra : -extra) - 1) % 12 + 12) % 12;
+}
+function majorStarBranches(tuVi) {
+    const phu = ((4 - tuVi) % 12 + 12) % 12;
+    return new Map([
+        ['tu-vi', tuVi], ['thien-co', (tuVi + 11) % 12], ['thai-duong', (tuVi + 9) % 12],
+        ['vu-khuc', (tuVi + 8) % 12], ['thien-dong', (tuVi + 7) % 12], ['liem-trinh', (tuVi + 4) % 12],
+        ['thien-phu', phu], ['thai-am', (phu + 1) % 12], ['tham-lang', (phu + 2) % 12],
+        ['cu-mon', (phu + 3) % 12], ['thien-tuong', (phu + 4) % 12], ['thien-luong', (phu + 5) % 12],
+        ['that-sat', (phu + 6) % 12], ['pha-quan', (phu + 10) % 12]
+    ]);
+}
+const hoaByCan = {
+    0: ['liem-trinh', 'pha-quan', 'vu-khuc', 'thai-duong'], 1: ['thien-co', 'thien-luong', 'tu-vi', 'thai-am'],
+    2: ['thien-dong', 'thien-co', 'van-xuong', 'liem-trinh'], 3: ['thai-am', 'thien-dong', 'thien-co', 'cu-mon'],
+    4: ['tham-lang', 'thai-am', 'huu-bat', 'thien-co'], 5: ['vu-khuc', 'tham-lang', 'thien-luong', 'van-khuc'],
+    6: ['thai-duong', 'vu-khuc', 'thai-am', 'thien-dong'], 7: ['cu-mon', 'thai-duong', 'van-khuc', 'van-xuong'],
+    8: ['thien-luong', 'tu-vi', 'ta-phu', 'vu-khuc'], 9: ['pha-quan', 'cu-mon', 'thai-am', 'tham-lang']
+};
+const locTonBranch = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0];
+const lifeCycle = [
+    ['trang-sinh', 'Tràng Sinh'], ['moc-duc', 'Mộc Dục'], ['quan-doi', 'Quan Đới'], ['lam-quan', 'Lâm Quan'],
+    ['de-vuong', 'Đế Vượng'], ['suy', 'Suy'], ['benh', 'Bệnh'], ['tu', 'Tử'], ['mo', 'Mộ'], ['tuyet', 'Tuyệt'],
+    ['thai', 'Thai'], ['duong', 'Dưỡng']
+];
+const lifeStart = { moc: 11, hoa: 2, tho: 8, kim: 5, thuy: 8 };
+const thaiTueCycle = [
+    ['thai-tue', 'Thái Tuế'], ['thieu-duong', 'Thiếu Dương'], ['tang-mon', 'Tang Môn'], ['thieu-am', 'Thiếu Âm'],
+    ['quan-phu', 'Quan Phù'], ['tu-phu', 'Tử Phù'], ['tue-pha', 'Tuế Phá'], ['long-duc', 'Long Đức'],
+    ['bach-ho', 'Bạch Hổ'], ['phuc-duc', 'Phúc Đức'], ['dieu-khach', 'Điếu Khách'], ['truc-phu', 'Trực Phù']
+];
+const bacSiCycle = [
+    ['bac-si', 'Bác Sĩ'], ['luc-si', 'Lực Sĩ'], ['thanh-long', 'Thanh Long'], ['tieu-hao', 'Tiểu Hao'],
+    ['tuong-quan', 'Tướng Quân'], ['tau-thu', 'Tấu Thư'], ['phi-liem', 'Phi Liêm'], ['hy-than', 'Hỷ Thần'],
+    ['benh-phu', 'Bệnh Phù'], ['dai-hao', 'Đại Hao'], ['phuc-binh', 'Phục Binh'], ['quan-phu-bac-si', 'Quan Phủ']
+];
+const khoiVietBranches = [
+    [1, 7], [0, 8], [11, 9], [11, 9], [1, 7], [0, 8], [6, 2], [6, 2], [3, 5], [3, 5]
+];
+function groupStarBranch(yearBranch, star) {
+    const group = yearBranch % 4;
+    return star === 'thien-ma' ? [2, 11, 8, 5][group] : [9, 6, 3, 0][group];
+}
+function minorLimitStart(yearBranch) {
+    if ([2, 6, 10].includes(yearBranch))
+        return 4;
+    if ([8, 0, 4].includes(yearBranch))
+        return 10;
+    if ([5, 9, 1].includes(yearBranch))
+        return 7;
+    return 1;
+}
+function yearCan(year) { return ((year - 4) % 10 + 10) % 10; }
+const stems = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+const naYinElements = ['kim', 'hoa', 'moc', 'tho', 'kim', 'hoa', 'thuy', 'tho', 'kim', 'moc', 'thuy', 'tho', 'hoa', 'moc', 'thuy', 'kim', 'hoa', 'moc', 'tho', 'kim', 'hoa', 'thuy', 'tho', 'kim', 'moc', 'thuy', 'tho', 'hoa', 'moc', 'thuy'];
+const cucByElement = {
+    thuy: { code: 'thuy-nhi-cuc', nameVi: 'Thủy nhị cục', element: 'thuy', number: 2 },
+    moc: { code: 'moc-tam-cuc', nameVi: 'Mộc tam cục', element: 'moc', number: 3 },
+    kim: { code: 'kim-tu-cuc', nameVi: 'Kim tứ cục', element: 'kim', number: 4 },
+    tho: { code: 'tho-ngu-cuc', nameVi: 'Thổ ngũ cục', element: 'tho', number: 5 },
+    hoa: { code: 'hoa-luc-cuc', nameVi: 'Hỏa lục cục', element: 'hoa', number: 6 }
+};
+function menhStem(yearStem, menhBranch) {
+    const stemAtDan = [2, 4, 6, 8, 0][yearStem % 5];
+    const branchOffsetFromDan = (menhBranch - 2 + 12) % 12;
+    return (stemAtDan + branchOffsetFromDan) % 10;
+}
+function sexagenaryIndex(stem, branch) {
+    for (let i = 0; i < 60; i++)
+        if (i % 10 === stem && i % 12 === branch)
+            return i;
+    throw new Error('Invalid stem-branch parity');
+}
+function parseLocal(input) {
+    if (!Number.isInteger(input.timezoneOffsetMinutes) || input.timezoneOffsetMinutes < -840 || input.timezoneOffsetMinutes > 840)
+        throw new Error('timezoneOffsetMinutes must be an integer from -840 to 840');
+    const match = input.localDateTime.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/);
+    if (!match)
+        throw new Error('localDateTime must be ISO-8601 local wall-clock');
+    const [, y, mo, day, hh, mm, ss = '0', ms = '0'] = match;
+    const wall = Date.UTC(+y, +mo - 1, +day, +hh, +mm, +ss, +(ms + '00').slice(0, 3));
+    const check = new Date(wall);
+    if (check.getUTCFullYear() !== +y || check.getUTCMonth() !== +mo - 1 || check.getUTCDate() !== +day || check.getUTCHours() !== +hh || check.getUTCMinutes() !== +mm || check.getUTCSeconds() !== +ss)
+        throw new Error('localDateTime contains an invalid calendar date or time');
+    const d = new Date(wall);
+    if (Number.isNaN(d.getTime()))
+        throw new Error('Invalid localDateTime');
+    return d;
+}
+function hourBranch(d) { return Math.floor(((d.getUTCHours() + 1) % 24) / 2); }
+function equationOfTimeMinutes(d) {
+    const start = Date.UTC(d.getUTCFullYear(), 0, 1);
+    const day = Math.floor((d.getTime() - start) / 86400000) + 1;
+    const b = 2 * Math.PI * (day - 81) / 364;
+    return 9.87 * Math.sin(2 * b) - 7.53 * Math.cos(b) - 1.5 * Math.sin(b);
+}
+export function calculateTuVi(input) {
+    if (!input || typeof input !== 'object' || typeof input.localDateTime !== 'string' || !input.localDateTime || !input.gender)
+        throw new Error('localDateTime and gender are required');
+    const inputKeys = ['localDateTime', 'timezoneOffsetMinutes', 'gender', 'trueSolarTime', 'location', 'tradition', 'asOfYear', 'asOfDate', 'include'];
+    for (const key of Object.keys(input))
+        if (!inputKeys.includes(key))
+            throw new Error(`input.${key} is not supported`);
+    if (input.gender !== 'male' && input.gender !== 'female')
+        throw new Error('gender must be male or female');
+    if (input.trueSolarTime !== undefined && typeof input.trueSolarTime !== 'boolean')
+        throw new Error('trueSolarTime must be boolean');
+    if (input.tradition && !['vietnamese', 'trung-chau', 'custom'].includes(input.tradition))
+        throw new Error('tradition is not supported');
+    if (input.asOfYear !== undefined && (!Number.isInteger(input.asOfYear) || input.asOfYear < 1 || input.asOfYear > 9999))
+        throw new Error('asOfYear must be an integer from 1 to 9999');
+    if (input.asOfDate !== undefined && (typeof input.asOfDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(input.asOfDate)))
+        throw new Error('asOfDate must use YYYY-MM-DD');
+    if (input.location !== undefined && (typeof input.location !== 'object' || input.location === null))
+        throw new Error('location must be an object');
+    for (const key of Object.keys(input.location ?? {}))
+        if (!['city', 'longitude'].includes(key))
+            throw new Error(`location.${key} is not supported`);
+    if (input.location?.city !== undefined && typeof input.location.city !== 'string')
+        throw new Error('location.city must be a string');
+    if (input.location?.longitude !== undefined && (!Number.isFinite(input.location.longitude) || input.location.longitude < -180 || input.location.longitude > 180))
+        throw new Error('location.longitude must be from -180 to 180');
+    if (input.include !== undefined && (typeof input.include !== 'object' || input.include === null))
+        throw new Error('include must be an object');
+    for (const [key, value] of Object.entries(input.include ?? {}))
+        if (!['daiHan', 'tieuHan', 'luuNien', 'luuNguyet', 'luuNhat', 'phiHoa'].includes(key) || typeof value !== 'boolean')
+            throw new Error(`include.${key} is not a supported boolean flag`);
+    const date = parseLocal(input);
+    const instant = new Date(date.getTime() - input.timezoneOffsetMinutes * 60000);
+    const catalogCity = findCity(input.location?.city);
+    const longitude = input.location?.longitude ?? catalogCity?.longitude;
+    const standardMeridian = input.timezoneOffsetMinutes / 4;
+    const longitudeCorrection = input.trueSolarTime && longitude !== undefined ? (longitude - standardMeridian) * 4 : 0;
+    const equationCorrection = input.trueSolarTime && longitude !== undefined ? equationOfTimeMinutes(date) : 0;
+    const solarCorrection = longitudeCorrection + equationCorrection;
+    const effectiveDate = new Date(date.getTime() + solarCorrection * 60000);
+    const year = effectiveDate.getUTCFullYear();
+    const h = hourBranch(effectiveDate);
+    const lunar = solarToVietnameseLunar(effectiveDate.getUTCDate(), effectiveDate.getUTCMonth() + 1, effectiveDate.getUTCFullYear(), input.timezoneOffsetMinutes / 60);
+    const menhRaw = 2 + (lunar.month - 1) - h, menh = ((menhRaw % 12) + 12) % 12;
+    const than = (2 + (lunar.month - 1) + h) % 12;
+    const can = yearCan(lunar.year);
+    const palaceStem = menhStem(can, menh), cycleIndex = sexagenaryIndex(palaceStem, menh);
+    const cuc = cucByElement[naYinElements[Math.floor(cycleIndex / 2)]];
+    const starBranches = majorStarBranches(tuViBranch(lunar.day, cuc.number));
+    const stars = majors.map(([code, name]) => ({ code, nameVi: name, kind: 'major', palaceIndex: ((starBranches.get(code) ?? 0) - menh + 12) % 12, ...majorMetadata[code] }));
+    const auxiliary = [
+        ['van-xuong', 'Văn Xương', (10 - h + 12) % 12], ['van-khuc', 'Văn Khúc', (4 + h) % 12],
+        ['ta-phu', 'Tả Phù', (4 + lunar.month - 1) % 12], ['huu-bat', 'Hữu Bật', (10 - (lunar.month - 1) + 12) % 12],
+        ['loc-ton', 'Lộc Tồn', locTonBranch[can]], ['kinh-duong', 'Kình Dương', (locTonBranch[can] + 1) % 12],
+        ['da-la', 'Đà La', (locTonBranch[can] + 11) % 12]
+    ];
+    auxiliary.forEach(([code, name, branch]) => stars.push({ code, nameVi: name, kind: 'auxiliary', palaceIndex: (branch - menh + 12) % 12 }));
+    const lifeForward = (can % 2 === 0 && input.gender === 'male') || (can % 2 === 1 && input.gender === 'female');
+    lifeCycle.forEach(([code, name], i) => {
+        const branch = (lifeStart[cuc.element] + (lifeForward ? i : -i) + 120) % 12;
+        stars.push({ code, nameVi: name, kind: 'auxiliary', palaceIndex: (branch - menh + 12) % 12 });
+    });
+    const yearBranch = ((lunar.year - 4) % 12 + 12) % 12;
+    thaiTueCycle.forEach(([code, name], i) => stars.push({ code, nameVi: name, kind: 'auxiliary', palaceIndex: (yearBranch + i - menh + 12) % 12 }));
+    bacSiCycle.forEach(([code, name], i) => {
+        const branch = (locTonBranch[can] + (lifeForward ? i : -i) + 120) % 12;
+        stars.push({ code, nameVi: name, kind: 'auxiliary', palaceIndex: (branch - menh + 12) % 12 });
+    });
+    const [khoiBranch, vietBranch] = khoiVietBranches[can], hongLoanBranch = (3 - yearBranch + 12) % 12;
+    const annualAuxiliary = [
+        ['thien-khoi', 'Thiên Khôi', khoiBranch], ['thien-viet', 'Thiên Việt', vietBranch],
+        ['thien-ma', 'Thiên Mã', groupStarBranch(yearBranch, 'thien-ma')],
+        ['dao-hoa', 'Đào Hoa', groupStarBranch(yearBranch, 'dao-hoa')],
+        ['hong-loan', 'Hồng Loan', hongLoanBranch], ['thien-hy', 'Thiên Hỷ', (hongLoanBranch + 6) % 12]
+    ];
+    annualAuxiliary.forEach(([code, name, branch]) => stars.push({ code, nameVi: name, kind: 'auxiliary', palaceIndex: (branch - menh + 12) % 12 }));
+    const hoaNames = ['Hóa Lộc', 'Hóa Quyền', 'Hóa Khoa', 'Hóa Kỵ'];
+    (hoaByCan[can] || []).forEach((code, i) => { const s = stars.find(x => x.code === code); if (s)
+        stars.push({ code: `${code}-hoa-${['loc', 'quyen', 'khoa', 'ky'][i]}`, nameVi: `${s.nameVi} ${hoaNames[i]}`, kind: 'transformation', palaceIndex: s.palaceIndex, element: s.element, yinYang: s.yinYang, group: 'tu-hoa' }); });
+    const palaces = palaceNames.map((name, i) => ({ code: name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-'), nameVi: name, index: i, branch: branches[(menh + i) % 12], isMenh: i === 0, isThan: i === ((than - menh + 12) % 12), stars: stars.filter(s => s.palaceIndex === i).map(s => s.code) }));
+    const phiHoa = input.include?.phiHoa ? palaces.flatMap(p => {
+        const branch = (menh + p.index) % 12, stem = menhStem(can, branch);
+        return hoaByCan[stem].flatMap((starCode, i) => {
+            const target = stars.find(s => s.code === starCode && s.kind !== 'transformation');
+            if (!target)
+                return [];
+            const transformation = ['loc', 'quyen', 'khoa', 'ky'][i];
+            return [{ code: `phi-hoa.${p.index}.${transformation}.${starCode}.${target.palaceIndex}`, sourcePalaceIndex: p.index, targetPalaceIndex: target.palaceIndex, sourceStem: stems[stem], starCode, transformation }];
+        });
+    }) : undefined;
+    const relation = (type, from, to) => ({ code: `relation.${type}.${from}.${to}`, type, from, to });
+    const xungRelations = Array.from({ length: 6 }, (_, i) => relation('xung', i, i + 6));
+    const tamHopRelations = Array.from({ length: 12 }, (_, i) => relation('tam-hop', i, (i + 4) % 12));
+    const lucHopRelations = [[0, 1], [2, 11], [3, 10], [4, 9], [5, 8], [6, 7]].map(([a, b]) => {
+        const from = (a - menh + 12) % 12, to = (b - menh + 12) % 12;
+        return relation('luc-hop', Math.min(from, to), Math.max(from, to));
+    });
+    const chieuRelations = Array.from({ length: 12 }, (_, i) => relation('chieu', i, (i + 6) % 12));
+    const relations = [...xungRelations, ...tamHopRelations, ...lucHopRelations, ...chieuRelations];
+    let asOfLunar, asOfYearBranch, dauQuanBranch, luuNguyetBranch, luuNhatBranch;
+    if (input.asOfDate) {
+        const [ay, am, ad] = input.asOfDate.split('-').map(Number);
+        const check = new Date(Date.UTC(ay, am - 1, ad));
+        if (check.getUTCFullYear() !== ay || check.getUTCMonth() !== am - 1 || check.getUTCDate() !== ad)
+            throw new Error('asOfDate contains an invalid calendar date');
+        asOfLunar = solarToVietnameseLunar(ad, am, ay, input.timezoneOffsetMinutes / 60);
+        asOfYearBranch = ((asOfLunar.year - 4) % 12 + 12) % 12;
+        dauQuanBranch = (asOfYearBranch - (lunar.month - 1) + h + 120) % 12;
+        luuNguyetBranch = (dauQuanBranch + asOfLunar.month - 1) % 12;
+        luuNhatBranch = (luuNguyetBranch + asOfLunar.day - 1) % 12;
+    }
+    const limitYear = asOfLunar?.year ?? input.asOfYear;
+    const nominalAge = limitYear !== undefined ? limitYear - lunar.year + 1 : undefined;
+    const tieuHanBranch = nominalAge !== undefined && nominalAge > 0 ? ((minorLimitStart(yearBranch) + (input.gender === 'male' ? nominalAge - 1 : -(nominalAge - 1))) % 12 + 12) % 12 : undefined;
+    const limitYearBranch = asOfYearBranch ?? (input.asOfYear !== undefined ? ((input.asOfYear - 4) % 12 + 12) % 12 : undefined);
+    const timeline = { ...(input.include?.daiHan ? { daiHan: Array.from({ length: 12 }, (_, i) => ({ startAge: cuc.number + i * 10, endAge: cuc.number + i * 10 + 9, palaceIndex: (lifeForward ? i : (12 - i) % 12) })) } : {}),
+        ...(input.include?.tieuHan && input.asOfYear && nominalAge && tieuHanBranch !== undefined ? { tieuHan: { year: input.asOfYear, nominalAge, palaceIndex: (tieuHanBranch - menh + 12) % 12 } } : {}),
+        ...(input.include?.luuNien && input.asOfYear && limitYearBranch !== undefined ? { luuNien: [{ year: input.asOfYear, palaceIndex: (limitYearBranch - menh + 12) % 12 }] } : {}),
+        ...(input.include?.luuNguyet && input.asOfDate && asOfLunar && luuNguyetBranch !== undefined ? { luuNguyet: { asOfDate: input.asOfDate, lunarMonth: asOfLunar.month, palaceIndex: (luuNguyetBranch - menh + 12) % 12 } } : {}),
+        ...(input.include?.luuNhat && input.asOfDate && asOfLunar && luuNhatBranch !== undefined ? { luuNhat: { asOfDate: input.asOfDate, lunarDay: asOfLunar.day, palaceIndex: (luuNhatBranch - menh + 12) % 12 } } : {}) };
+    const audit = [{ rule: 'lunar-date', value: `${lunar.year}-${lunar.month}-${lunar.day}${lunar.leap ? '-leap' : ''}`, source: 'Vietnamese astronomical lunar calendar' }, { rule: 'menh-branch-index', value: String(menh), source: 'lunar month and hour branch' }, { rule: 'menh-stem-branch', value: `${stems[palaceStem]} ${branches[menh]}`, source: 'Ngũ hổ độn palace stem rule' }, { rule: 'cuc-na-yin-element', value: cuc.element, source: '60 Jiazi Na Yin table' }, { rule: 'trang-sinh-direction', value: lifeForward ? 'forward' : 'reverse', source: 'year yin-yang and gender' }, { rule: 'tu-vi-branch-index', value: String(starBranches.get('tu-vi')), source: 'lunar day and Cục placement rule' }, { rule: 'year-can', value: String(can), source: 'sexagenary lunar year' }, ...(input.trueSolarTime ? [
+            { rule: 'longitude-correction-minutes', value: String(longitudeCorrection), source: longitude === undefined ? 'longitude unavailable' : `longitude vs ${standardMeridian}° standard meridian` },
+            { rule: 'equation-of-time-minutes', value: String(equationCorrection), source: longitude === undefined ? 'not applied without longitude' : 'NOAA-style day-of-year approximation' },
+            { rule: 'true-solar-correction-minutes', value: String(solarCorrection), source: 'longitude correction plus equation of time' }
+        ] : [])];
+    if (input.include?.daiHan)
+        audit.push({ rule: 'dai-han-direction', value: lifeForward ? 'forward' : 'reverse', source: 'year yin-yang and gender' });
+    if (input.include?.tieuHan && nominalAge && tieuHanBranch !== undefined)
+        audit.push({ rule: 'tieu-han-position', value: `age-${nominalAge}:${branches[tieuHanBranch]}`, source: 'year-branch trine start and male-forward/female-reverse' });
+    if (input.include?.luuNien && limitYearBranch !== undefined)
+        audit.push({ rule: 'luu-nien-year-branch', value: branches[limitYearBranch], source: asOfLunar ? 'asOfDate Vietnamese lunar year branch' : 'asOfYear sexagenary branch' });
+    if (input.include?.luuNguyet && asOfLunar && dauQuanBranch !== undefined)
+        audit.push({ rule: 'luu-nguyet-dau-quan', value: `${branches[dauQuanBranch]}:${asOfLunar.month}`, source: 'annual branch, birth lunar month and birth hour' });
+    if (input.include?.luuNhat && asOfLunar)
+        audit.push({ rule: 'luu-nhat-lunar-day', value: String(asOfLunar.day), source: 'asOfDate Vietnamese lunar day' });
+    if (input.include?.phiHoa)
+        audit.push({ rule: 'phi-hoa-palace-stems', value: String(phiHoa?.length ?? 0), source: 'palace heavenly stem transformation table' });
+    const versionForRule = (rule) => {
+        if (rule === 'lunar-date')
+            return 'vn-astronomical-lunar-1';
+        if (rule.includes('solar') || rule.includes('longitude') || rule.includes('equation-of-time'))
+            return 'longitude-eot-approx-1';
+        if (rule.includes('cuc') || rule === 'menh-stem-branch')
+            return 'jiazi-nayin-2';
+        if (rule === 'tu-vi-branch-index')
+            return 'tuvi-thienphu-groups-1';
+        if (rule.startsWith('phi-hoa'))
+            return 'palace-stem-phi-hoa-1';
+        if (rule.includes('han') || rule.startsWith('luu-'))
+            return 'daihan-luunien-baseline-1';
+        return 'menh-than-lunar-month-hour-1';
+    };
+    const versionedAudit = audit.map(entry => ({ ...entry, version: versionForRule(entry.rule) }));
+    const menhPalace = palaces[0], menhStars = stars.filter(s => s.palaceIndex === 0 && s.kind === 'major');
+    const facts = [
+        { code: 'chart.menh.location', text: { vi: `Cung Mệnh an tại ${menhPalace.branch}.`, en: `The Life palace is located at ${menhPalace.branch}.` }, evidence: ['audit:menh-branch-index', 'palace:menh'] },
+        { code: 'chart.cuc', text: { vi: `Lá số thuộc ${cuc.nameVi}.`, en: `The chart uses ${cuc.code}.` }, evidence: ['audit:cuc-na-yin-element', `cuc:${cuc.code}`] },
+        { code: 'chart.menh.major-stars', text: { vi: `Chính tinh tại Mệnh: ${menhStars.map(s => s.nameVi).join(', ') || 'Vô chính diệu'}.`, en: `Major stars in Life palace: ${menhStars.map(s => s.code).join(', ') || 'none'}.` }, evidence: menhStars.map(s => `star:${s.code}`) }
+    ];
+    const warnings = [];
+    if (input.tradition && input.tradition !== 'vietnamese')
+        warnings.push({ code: 'tradition.baseline-fallback', severity: 'warning', message: { vi: `Profile ${input.tradition} chưa có rule table riêng; kết quả dùng baseline Vietnamese.`, en: `The ${input.tradition} profile has no dedicated rule table; Vietnamese baseline rules were used.` } });
+    if (input.trueSolarTime && longitude === undefined)
+        warnings.push({ code: 'solar-time.longitude-missing', severity: 'warning', message: { vi: 'Không có kinh độ nên chưa áp dụng hiệu chỉnh giờ Mặt Trời thật.', en: 'True solar time correction was not applied because longitude is unavailable.' } });
+    if (catalogCity && input.timezoneOffsetMinutes !== catalogCity.timezoneOffsetMinutes)
+        warnings.push({ code: 'location.timezone-mismatch', severity: 'warning', message: { vi: `Timezone input không khớp catalog ${catalogCity.nameVi}.`, en: `The input timezone does not match the catalog timezone for ${catalogCity.nameEn}.` } });
+    if ((input.include?.luuNguyet || input.include?.luuNhat) && !input.asOfDate)
+        warnings.push({ code: 'timeline.as-of-date-missing', severity: 'warning', message: { vi: 'Cần asOfDate để tính Lưu Nguyệt hoặc Lưu Nhật.', en: 'asOfDate is required to calculate monthly or daily limits.' } });
+    if (input.include?.phiHoa)
+        warnings.push({ code: 'feature.phi-hoa-baseline', severity: 'info', message: { vi: 'Phi Hóa dùng bảng can cung của profile Vietnamese baseline; trường phái khác có thể dùng quy ước khác.', en: 'Flying transformations use the Vietnamese baseline palace-stem table; other schools may differ.' } });
+    if (lunar.leap)
+        warnings.push({ code: 'calendar.leap-month', severity: 'info', message: { vi: 'Ngày sinh nằm trong tháng âm lịch nhuận.', en: 'The birth date falls in a leap lunar month.' } });
+    return { input, palaces, stars, cuc, metadata: { engine: 'viet-tuvi-engine', version: '0.1.0', schemaVersion: '0.1.0', ruleSetVersion: 'vn-popular-0.2', methodology: `${input.tradition || 'vietnamese'} deterministic baseline`, calculatedAt: instant.toISOString(), capabilities: ['palaces', '14-major-stars', 'tu-hoa', 'cuc', 'relations', 'audit', 'localized-facts', 'warnings', 'phi-hoa'], sources: getMethodologyManifest().sources }, audit: versionedAudit, timeline, relations, facts, warnings, ...(phiHoa ? { phiHoa } : {}) };
+}
+export const capabilities = () => ({
+    engine: 'viet-tuvi-engine', version: '0.1.0', schemaVersion: '0.1.0', offline: true,
+    features: ['calculate', 'timeline', 'phi-hoa', 'compatibility', 'sensitivity', 'grounded-prompt', 'svg', 'mcp'],
+    traditions: { vietnamese: 'baseline', 'trung-chau': 'fallback', custom: 'fallback' },
+    timeline: { daiHan: 'baseline', tieuHan: 'baseline', luuNien: 'baseline', luuNguyet: 'baseline', luuNhat: 'baseline' },
+    status: { core: 'stable-baseline', svg: 'available', mcp: 'available', python: 'available', phiHoa: 'baseline', wasm: 'available' }
+});
+export const getEngineCapabilities = capabilities;
+const methodologySources = [
+    { url: 'https://tuvibacphai.com/tuvi', role: 'comparison-oracle' },
+    { url: 'https://tuvivietnam.vn/so-luoc-ve-lich-su-tu-vi-trung-hoa-noi-chung-va-trung-chau-phai-noi-rieng/', role: 'reference-only' },
+    { url: 'https://tuvivietnam.vn/trung-chau-phai/', role: 'reference-only' },
+    { url: 'https://tuvitrungchau.com', role: 'reference-only' }
+];
+const methodologyResourceText = () => JSON.stringify(getMethodologyManifest(), null, 2);
+export const getMethodologyManifest = () => ({
+    engineVersion: '0.1.0', schemaVersion: '0.1.0', ruleSetVersion: 'vn-popular-0.2',
+    sources: methodologySources,
+    rules: { calendar: 'vn-astronomical-lunar-1', wasmCalendar: 'wasm-calendar-abi-1', trueSolarTime: 'longitude-eot-approx-1',
+        palaces: 'menh-than-lunar-month-hour-1', cuc: 'jiazi-nayin-2',
+        majorStars: 'tuvi-thienphu-groups-1', transformations: 'ten-stem-tu-hoa-1',
+        phiHoa: 'palace-stem-phi-hoa-1', timelines: 'daihan-luunien-baseline-1' }
+});
+export function serializeChart(chart) {
+    return JSON.stringify(chart);
+}
+export function compareChartFixture(input, expected) {
+    const actual = calculateTuVi(input), diffs = [];
+    const check = (path, want, got) => { if (JSON.stringify(want) !== JSON.stringify(got))
+        diffs.push({ path, expected: want, actual: got }); };
+    if (expected.cuc?.code !== undefined)
+        check('cuc.code', expected.cuc.code, actual.cuc.code);
+    if (expected.palaces)
+        for (const palace of expected.palaces) {
+            const got = actual.palaces.find(p => p.index === palace.index);
+            if (!got)
+                diffs.push({ path: `palaces[${palace.index}]`, expected: palace, actual: undefined });
+            else {
+                if (palace.branch !== undefined)
+                    check(`palaces[${palace.index}].branch`, palace.branch, got.branch);
+                if (palace.isMenh !== undefined)
+                    check(`palaces[${palace.index}].isMenh`, palace.isMenh, got.isMenh);
+                if (palace.isThan !== undefined)
+                    check(`palaces[${palace.index}].isThan`, palace.isThan, got.isThan);
+                if (palace.stars !== undefined)
+                    check(`palaces[${palace.index}].stars`, [...palace.stars].sort(), [...got.stars].sort());
+            }
+        }
+    if (expected.stars)
+        for (const star of expected.stars) {
+            const got = actual.stars.find(s => s.code === star.code);
+            if (!got)
+                diffs.push({ path: `stars.${star.code}`, expected: star, actual: undefined });
+            else if (star.palaceIndex !== undefined)
+                check(`stars.${star.code}.palaceIndex`, star.palaceIndex, got.palaceIndex);
+        }
+    return { match: diffs.length === 0, diffs, actual, methodology: 'stable-field fixture comparison' };
+}
+function engineErrorCode(error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes('localDateTime'))
+        return 'input.local-date-time';
+    if (message.includes('timezoneOffsetMinutes'))
+        return 'input.timezone-offset';
+    if (message.includes('gender'))
+        return 'input.gender';
+    if (message.includes('trueSolarTime'))
+        return 'input.true-solar-time';
+    if (message.includes('location.longitude'))
+        return 'input.location.longitude';
+    if (message.includes('location.city'))
+        return 'input.location.city';
+    if (message.includes('location'))
+        return 'input.location';
+    if (message.includes('asOfDate'))
+        return 'input.as-of-date';
+    if (message.includes('asOfYear'))
+        return 'input.as-of-year';
+    if (message.includes('include.'))
+        return 'input.include';
+    if (message.includes('tradition'))
+        return 'input.tradition';
+    if (message.includes('not supported'))
+        return 'input.additional-property';
+    return 'engine.invalid-input';
+}
+export function validateInput(input) {
+    try {
+        calculateTuVi(input);
+        return { valid: true, issues: [] };
+    }
+    catch (error) {
+        return { valid: false, issues: [{ code: engineErrorCode(error), message: error instanceof Error ? error.message : 'Invalid input' }] };
+    }
+}
+export function sensitivity(input) {
+    const base = calculateTuVi(input);
+    const datePart = input.localDateTime.slice(0, 10);
+    const hourBranches = Array.from({ length: 12 }, (_, branch) => {
+        const hour = branch === 0 ? 0 : branch * 2;
+        const chart = calculateTuVi({ ...input, localDateTime: `${datePart}T${String(hour).padStart(2, '0')}:00:00` });
+        return { hourBranch: branches[branch], localHour: hour, menhBranch: chart.palaces[0].branch,
+            thanPalace: chart.palaces.find(p => p.isThan)?.code ?? 'unknown', cuc: chart.cuc.code,
+            majorStarsAtMenh: chart.stars.filter(s => s.kind === 'major' && s.palaceIndex === 0).map(s => s.code) };
+    });
+    const variants = [-1, 0, 1].map(delta => {
+        const d = new Date(`${input.localDateTime}Z`);
+        d.setUTCHours(d.getUTCHours() + delta);
+        const chart = calculateTuVi({ ...input, localDateTime: d.toISOString().slice(0, 19) });
+        return { deltaHours: delta, menhBranch: chart.palaces[0].branch, palaceIndex: chart.palaces[0].index,
+            changed: chart.palaces[0].branch !== base.palaces[0].branch };
+    });
+    const baselineSignature = `${base.palaces[0].branch}|${base.cuc.code}|${base.stars.filter(s => s.kind === 'major' && s.palaceIndex === 0).map(s => s.code).join(',')}`;
+    const stableCount = hourBranches.filter(v => `${v.menhBranch}|${v.cuc}|${v.majorStarsAtMenh.join(',')}` === baselineSignature).length;
+    return { baseline: { menhBranch: base.palaces[0].branch, palaceIndex: base.palaces[0].index },
+        variants, hourBranches, stabilityScore: stableCount / 12,
+        methodology: 'adjacent-hour perturbation plus twelve birth-hour branch sweep' };
+}
+export function calculateTimeline(input) {
+    const chart = calculateTuVi({ ...input, include: { ...input.include, daiHan: true, tieuHan: true, luuNien: true, ...(input.asOfDate ? { luuNguyet: true, luuNhat: true } : {}) } });
+    return {
+        input: chart.input, timeline: chart.timeline,
+        audit: chart.audit.filter(entry => entry.rule.includes('han') || entry.rule.startsWith('luu-')),
+        warnings: chart.warnings.filter(warning => warning.code.startsWith('timeline.')),
+        metadata: { engine: chart.metadata.engine, version: chart.metadata.version, ruleSetVersion: chart.metadata.ruleSetVersion }
+    };
+}
+export function compatibility(a, b) {
+    const left = calculateTuVi(a), right = calculateTuVi(b);
+    const li = branches.indexOf(left.palaces[0].branch), ri = branches.indexOf(right.palaces[0].branch);
+    const distance = Math.min((li - ri + 12) % 12, (ri - li + 12) % 12);
+    const lucHop = [[0, 1], [2, 11], [3, 10], [4, 9], [5, 8], [6, 7]].some(([x, y]) => (li === x && ri === y) || (li === y && ri === x));
+    const branchRelation = li === ri ? 'same' : distance === 4 ? 'tam-hop' : lucHop ? 'luc-hop' : distance === 6 ? 'xung' : 'neutral';
+    const branchPoints = { same: 8, 'tam-hop': 15, 'luc-hop': 12, xung: -18, neutral: 0 }[branchRelation];
+    const elements = ['moc', 'hoa', 'tho', 'kim', 'thuy'], le = elements.indexOf(left.cuc.element), re = elements.indexOf(right.cuc.element);
+    const elementRelation = le === re ? 'same' : (le + 1) % 5 === re || (re + 1) % 5 === le ? 'productive' : (le + 2) % 5 === re || (re + 2) % 5 === le ? 'controlling' : 'neutral';
+    const elementPoints = { same: 10, productive: 14, controlling: -12, neutral: 0 }[elementRelation];
+    const score = Math.max(0, Math.min(100, 60 + branchPoints + elementPoints));
+    return { score, grade: score >= 75 ? 'favorable' : score >= 50 ? 'mixed' : 'challenging',
+        aspects: [
+            { code: 'compatibility.menh-branch', relation: branchRelation, score: branchPoints, evidence: [`left:${left.palaces[0].branch}`, `right:${right.palaces[0].branch}`] },
+            { code: 'compatibility.cuc-element', relation: elementRelation, score: elementPoints, evidence: [`left:${left.cuc.element}`, `right:${right.cuc.element}`] }
+        ],
+        evidence: [{ code: 'menh-branch-relation', value: branchRelation }, { code: 'cuc-element-relation', value: elementRelation }],
+        methodology: 'structural baseline; not predictive advice' };
+}
+export function createGroundedPrompt(chart, locale = 'vi') {
+    const facts = chart.facts.map(f => `${f.code}: ${f.text[locale]} [${f.evidence.join(',')}]`).join('\n');
+    const instruction = locale === 'vi'
+        ? 'Diễn giải có điều kiện, chỉ dùng bằng chứng bên dưới; trích dẫn stable code và nêu rõ giới hạn.'
+        : 'Interpret conditionally using only the evidence below; cite stable codes and state limitations.';
+    return { system: instruction, evidence: { engine: chart.metadata.engine, version: chart.metadata.version,
+            cuc: chart.cuc.code, palaces: facts, audit: chart.audit, warnings: chart.warnings } };
+}
+export function renderSvg(chart) {
+    const size = 720, cell = 180;
+    const positions = [[0, 0], [1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [3, 3], [2, 3], [1, 3], [0, 3], [0, 2], [0, 1]];
+    const escape = (value) => value.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
+    const starNames = new Map(chart.stars.map(s => [s.code, s.nameVi]));
+    const cells = chart.palaces.map(p => {
+        const [col, row] = positions[p.index], x = col * cell, y = row * cell;
+        const names = p.stars.map(code => starNames.get(code) ?? code);
+        const lines = [];
+        let line = '';
+        for (const name of names) {
+            const candidate = line ? `${line}, ${name}` : name;
+            if (candidate.length > 19 && line) {
+                lines.push(line);
+                line = name;
+            }
+            else
+                line = candidate;
+        }
+        if (line)
+            lines.push(line);
+        const starText = lines.slice(0, 8).map((value, i) => `<tspan x="10" dy="${i === 0 ? 0 : 13}">${escape(value)}</tspan>`).join('');
+        return `<g transform="translate(${x},${y})"><rect width="180" height="180" fill="${p.isMenh ? '#eef6ff' : '#fff'}" stroke="#1f2937"/>` +
+            `<text x="10" y="24" font-family="sans-serif" font-size="16" font-weight="bold">${escape(p.nameVi)}</text>` +
+            `<text x="10" y="46" font-family="sans-serif" font-size="13">${escape(p.branch)}${p.isThan ? ' · Thân' : ''}</text>` +
+            `<text x="10" y="72" font-family="sans-serif" font-size="9.5">${starText || '<tspan>Không có sao</tspan>'}</text></g>`;
+    }).join('');
+    const center = `<g transform="translate(180,180)"><rect width="360" height="360" fill="#f8fafc" stroke="#1f2937"/><text x="180" y="145" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="bold">Lá số Tử Vi</text><text x="180" y="180" text-anchor="middle" font-family="sans-serif" font-size="16">${escape(chart.cuc.nameVi)}</text><text x="180" y="210" text-anchor="middle" font-family="sans-serif" font-size="13">Rule set ${escape(chart.metadata.ruleSetVersion)}</text></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" role="img" aria-labelledby="title desc"><title id="title">Lá số Tử Vi</title><desc id="desc">Mười hai cung bao quanh phần thông tin trung tâm, trình bày các sao trong từng cung</desc>${center}${cells}</svg>`;
+}
+export function handleMcpMessage(message) {
+    const m = message;
+    if (m?.id === undefined && m?.method?.startsWith('notifications/'))
+        return null;
+    const id = m.id ?? null;
+    try {
+        if (m.method === 'initialize')
+            return { jsonrpc: '2.0', id, result: { protocolVersion: '2025-06-18', capabilities: { tools: { listChanged: false }, resources: { subscribe: false, listChanged: false } }, serverInfo: { name: 'viet-tuvi-engine', version: '0.1.0' } } };
+        if (m.method === 'resources/list')
+            return { jsonrpc: '2.0', id, result: { resources: [
+                        { uri: 'tuvi://methodology', name: 'Methodology manifest', description: 'Versioned calculation rules and provenance', mimeType: 'application/json' },
+                        { uri: 'tuvi://sources/trung-chau', name: 'Trung Châu research sources', description: 'Public comparison and reference sources', mimeType: 'text/markdown' }
+                    ] } };
+        if (m.method === 'resources/read') {
+            const uri = m.params?.uri;
+            if (uri === 'tuvi://methodology')
+                return { jsonrpc: '2.0', id, result: { contents: [{ uri, mimeType: 'application/json', text: methodologyResourceText() }] } };
+            if (uri === 'tuvi://sources/trung-chau')
+                return { jsonrpc: '2.0', id, result: { contents: [{ uri, mimeType: 'text/markdown', text: '# Trung Châu sources\n\n- https://tuvibacphai.com/tuvi (comparison oracle)\n- https://tuvivietnam.vn/so-luoc-ve-lich-su-tu-vi-trung-hoa-noi-chung-va-trung-chau-phai-noi-rieng/ (historical reference)\n- https://tuvivietnam.vn/trung-chau-phai/ (auxiliary-star reference)\n- https://tuvitrungchau.com (school bibliography)\n\nThese are reference/comparison sources, not claims of conformance.' }] } };
+            return { jsonrpc: '2.0', id, error: { code: -32602, message: 'Unknown resource URI' } };
+        }
+        if (m.method === 'tools/list')
+            return { jsonrpc: '2.0', id, result: { tools: [
+                        { name: 'capabilities', description: 'Discover engine features and versions', inputSchema: { type: 'object', additionalProperties: false } },
+                        { name: 'cities', description: 'List supported Vietnamese city locations', inputSchema: { type: 'object', additionalProperties: false } },
+                        { name: 'major-stars', description: 'List stable metadata for the fourteen major stars', inputSchema: { type: 'object', additionalProperties: false } },
+                        { name: 'methodology', description: 'Return versioned calculation methodology manifest', inputSchema: { type: 'object', additionalProperties: false } },
+                        { name: 'validate-input', description: 'Validate calculation input without throwing', inputSchema: { type: 'object' } },
+                        { name: 'calculate', description: 'Calculate a structured Tu Vi chart', inputSchema: { type: 'object', required: ['localDateTime', 'timezoneOffsetMinutes', 'gender'] } },
+                        { name: 'compare-fixture', description: 'Compare a chart against stable expected fields', inputSchema: { type: 'object', required: ['input', 'expected'] } },
+                        { name: 'timeline', description: 'Calculate major, minor, annual, monthly, and daily limits', inputSchema: { type: 'object', required: ['localDateTime', 'timezoneOffsetMinutes', 'gender', 'asOfYear'] } },
+                        { name: 'sensitivity', description: 'Compare nearby birth-hour variants', inputSchema: { type: 'object', required: ['localDateTime', 'timezoneOffsetMinutes', 'gender'] } },
+                        { name: 'compatibility', description: 'Compare two chart inputs', inputSchema: { type: 'object', required: ['a', 'b'] } },
+                        { name: 'grounded-prompt', description: 'Create an evidence-grounded interpretation prompt', inputSchema: { type: 'object', required: ['chart'] } },
+                        { name: 'render-svg', description: 'Render an accessible high-contrast SVG chart', inputSchema: { type: 'object', required: ['chart'] } }
+                    ] } };
+        if (m.method === 'tools/call') {
+            const name = m.params?.name, args = m.params?.arguments ?? {};
+            let result;
+            if (name === 'capabilities')
+                result = capabilities();
+            else if (name === 'cities')
+                result = { cities: listVietnamCities() };
+            else if (name === 'major-stars')
+                result = { stars: listMajorStars() };
+            else if (name === 'methodology')
+                result = getMethodologyManifest();
+            else if (name === 'validate-input')
+                result = validateInput(args);
+            else if (name === 'calculate')
+                result = calculateTuVi(args);
+            else if (name === 'compare-fixture')
+                result = compareChartFixture(args.input, args.expected);
+            else if (name === 'timeline')
+                result = calculateTimeline(args);
+            else if (name === 'sensitivity')
+                result = sensitivity(args);
+            else if (name === 'compatibility')
+                result = compatibility(args.a, args.b);
+            else if (name === 'grounded-prompt')
+                result = createGroundedPrompt(args.chart, args.locale);
+            else if (name === 'render-svg')
+                result = { svg: renderSvg(args.chart) };
+            else
+                return { jsonrpc: '2.0', id, error: { code: -32602, message: `Unknown tool: ${String(name)}` } };
+            return { jsonrpc: '2.0', id, result: { content: [{ type: 'text', text: JSON.stringify(result) }], structuredContent: result } };
+        }
+        if (m.method === 'capabilities')
+            return { jsonrpc: '2.0', id, result: capabilities() };
+        if (m.method === 'calculate')
+            return { jsonrpc: '2.0', id, result: calculateTuVi(m.params) };
+        if (m.method === 'sensitivity')
+            return { jsonrpc: '2.0', id, result: sensitivity(m.params) };
+        if (m.method === 'compatibility')
+            return { jsonrpc: '2.0', id, result: compatibility(m.params.a, m.params.b) };
+        if (m.method === 'grounded-prompt')
+            return { jsonrpc: '2.0', id, result: createGroundedPrompt(m.params.chart, m.params.locale) };
+        return { jsonrpc: '2.0', id, error: { code: -32601, message: 'Method not found' } };
+    }
+    catch (error) {
+        return { jsonrpc: '2.0', id, error: { code: -32602, message: error instanceof Error ? error.message : 'Invalid params', data: { engineCode: engineErrorCode(error) } } };
+    }
+}
+import { solarToVietnameseLunar } from './calendar.js';

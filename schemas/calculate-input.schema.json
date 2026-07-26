@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viet-tuvi-engine.dev/schemas/calculate-input-0.1.0.json",
+  "title": "Tu Vi Calculation Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["localDateTime", "timezoneOffsetMinutes", "gender"],
+  "properties": {
+    "localDateTime": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(?::\\d{2}(?:\\.\\d{1,3})?)?$"
+    },
+    "timezoneOffsetMinutes": {"type": "integer", "minimum": -840, "maximum": 840},
+    "gender": {"enum": ["male", "female"]},
+    "trueSolarTime": {"type": "boolean"},
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "city": {"type": "string"},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180}
+      }
+    },
+    "tradition": {"enum": ["vietnamese", "trung-chau", "custom"]},
+    "asOfYear": {"type": "integer", "minimum": 1, "maximum": 9999},
+    "asOfDate": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "include": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "daiHan": {"type": "boolean"},
+        "tieuHan": {"type": "boolean"},
+        "luuNien": {"type": "boolean"},
+        "luuNguyet": {"type": "boolean"},
+        "luuNhat": {"type": "boolean"},
+        "phiHoa": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# Architecture
+
+`src/index.ts` is the TypeScript source of truth. Calculation functions are pure with respect to their input; no network, filesystem, locale, or system clock is consulted.
+
+The stable boundary is `TuViChart`: palaces and stars use machine codes, while `metadata`, `audit`, and `capabilities` expose methodology and implementation status. SVG, MCP, prompt generation, and CLI are adapters over this same chart.
+
+The current `0.1.0` rule set is a deterministic baseline. The Vietnamese astronomical lunar conversion and the Tử Vi/Thiên Phủ major-star groups are implemented; the Cục mapping remains explicitly versioned in `audit` and must receive broader school-level conformance fixtures. New rule tables should add fixtures before changing output.

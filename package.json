@@ -1,0 +1,49 @@
+{
+  "name": "viet-tuvi-engine",
+  "version": "0.1.0",
+  "description": "Deterministic, offline-first Vietnamese Tu Vi calculation engine",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {"types": "./dist/index.d.ts", "import": "./dist/index.js"},
+    "./calendar": {"types": "./dist/calendar.d.ts", "import": "./dist/calendar.js"},
+    "./wasm": {"types": "./dist/wasm.d.ts", "import": "./dist/wasm.js"},
+    "./schema/chart": "./schemas/chart.schema.json",
+    "./schema/input": "./schemas/calculate-input.schema.json",
+    "./schema/research-fixture": "./schemas/research-fixture.schema.json",
+    "./schema/source-manifest": "./schemas/source-manifest.schema.json",
+    "./schema/profile-matrix": "./schemas/profile-matrix.schema.json",
+    "./schema/unresolved-rules": "./schemas/unresolved-rules.schema.json"
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "fixtures",
+    "bindings/python/viet_tuvi_engine",
+    "bindings/python/pyproject.toml",
+    "bindings/python/README.md",
+    "bindings/wasm",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {"node": ">=20"},
+  "bin": {
+    "viet-tuvi": "./dist/cli.js",
+    "viet-tuvi-mcp": "./dist/mcp-server.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:wasm": "asc assembly/calendar.ts --target release && node scripts/build-wasm-manifest.mjs",
+    "build:python": "npm run build && node scripts/build-python-binding.mjs",
+    "test": "npm run build:wasm && npm run build:python && node --test test/*.test.js",
+    "compare:fixture": "npm run build && node scripts/compare-fixture.mjs",
+    "mcp:stdio": "npm run build && node dist/mcp-server.js"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "assemblyscript": "^0.27.31",
+    "typescript": "^5.6.3"
+  }
+}

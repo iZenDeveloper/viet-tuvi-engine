@@ -1,0 +1,56 @@
+{
+  "id": "public-tuvibacphai-1990-05-17-female",
+  "classification": "comparison-oracle",
+  "source": {
+    "name": "An sao Trung Châu Lý Số",
+    "url": "https://tuvibacphai.com/tuvi/",
+    "retrievedAt": "2026-07-26",
+    "method": "public-browser-render-capture",
+    "notes": "Canvas fillText output was captured after isolating the Tu Vi renderer from a public-page Tu Tru JavaScript error."
+  },
+  "calculatorOptions": {
+    "calendar": "solar",
+    "tuHoa": "kham-thien-mon",
+    "hoaLinh": "tcp-thuan",
+    "chartMode": "default"
+  },
+  "input": {
+    "localDateTime": "1990-05-17T14:30:00",
+    "timezoneOffsetMinutes": 420,
+    "gender": "female",
+    "tradition": "vietnamese"
+  },
+  "expected": {
+    "cuc": {
+      "code": "tho-ngu-cuc"
+    },
+    "palaces": [
+      {
+        "index": 0,
+        "branch": "Tuất",
+        "isMenh": true
+      },
+      {
+        "index": 2,
+        "branch": "Tý",
+        "isThan": true
+      }
+    ],
+    "stars": [
+      {"code": "tu-vi", "palaceIndex": 10},
+      {"code": "thien-co", "palaceIndex": 9},
+      {"code": "thai-duong", "palaceIndex": 7},
+      {"code": "vu-khuc", "palaceIndex": 6},
+      {"code": "thien-dong", "palaceIndex": 5},
+      {"code": "liem-trinh", "palaceIndex": 2},
+      {"code": "thien-phu", "palaceIndex": 10},
+      {"code": "thai-am", "palaceIndex": 11},
+      {"code": "tham-lang", "palaceIndex": 0},
+      {"code": "cu-mon", "palaceIndex": 1},
+      {"code": "thien-tuong", "palaceIndex": 2},
+      {"code": "thien-luong", "palaceIndex": 3},
+      {"code": "that-sat", "palaceIndex": 4},
+      {"code": "pha-quan", "palaceIndex": 8}
+    ]
+  }
+}

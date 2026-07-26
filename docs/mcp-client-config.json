@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "viet-tuvi-engine": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/viet-tuvi-engine/dist/mcp-server.js"
+      ]
+    }
+  }
+}
