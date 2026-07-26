@@ -26,6 +26,13 @@ import type {
   Star,
   TuViChart
 } from './types.js';
+import {
+  ENGINE_NAME,
+  ENGINE_VERSION,
+  RULE_SET_VERSION,
+  RULE_VERSIONS,
+  SCHEMA_VERSION
+} from './version.js';
 
 export function calculateTuVi(input: CalculateInput): TuViChart {
   if (!input||typeof input!=='object'||typeof input.localDateTime!=='string'||!input.localDateTime||!input.gender) throw new Error('localDateTime and gender are required');
@@ -128,13 +135,13 @@ export function calculateTuVi(input: CalculateInput): TuViChart {
   if(input.include?.luuNhat&&asOfLunar) audit.push({rule:'luu-nhat-lunar-day',value:String(asOfLunar.day),source:'asOfDate Vietnamese lunar day'});
   if(input.include?.phiHoa) audit.push({rule:'phi-hoa-palace-stems',value:String(phiHoa?.length??0),source:'palace heavenly stem transformation table'});
   const versionForRule=(rule:string)=>{
-    if(rule==='lunar-date')return'vn-astronomical-lunar-1';
-    if(rule.includes('solar')||rule.includes('longitude')||rule.includes('equation-of-time'))return'longitude-eot-approx-1';
-    if(rule.includes('cuc')||rule==='menh-stem-branch')return'jiazi-nayin-2';
-    if(rule==='tu-vi-branch-index')return'tuvi-thienphu-groups-1';
-    if(rule.startsWith('phi-hoa'))return'palace-stem-phi-hoa-1';
-    if(rule.includes('han')||rule.startsWith('luu-'))return'daihan-luunien-baseline-1';
-    return'menh-than-lunar-month-hour-1';
+    if(rule==='lunar-date')return RULE_VERSIONS.calendar;
+    if(rule.includes('solar')||rule.includes('longitude')||rule.includes('equation-of-time'))return RULE_VERSIONS.trueSolarTime;
+    if(rule.includes('cuc')||rule==='menh-stem-branch')return RULE_VERSIONS.cuc;
+    if(rule==='tu-vi-branch-index')return RULE_VERSIONS.majorStars;
+    if(rule.startsWith('phi-hoa'))return RULE_VERSIONS.phiHoa;
+    if(rule.includes('han')||rule.startsWith('luu-'))return RULE_VERSIONS.timelines;
+    return RULE_VERSIONS.palaces;
   };
   const versionedAudit=audit.map(entry=>({...entry,version:versionForRule(entry.rule)}));
   const menhPalace=palaces[0],menhStars=stars.filter(s=>s.palaceIndex===0&&s.kind==='major');
@@ -150,5 +157,5 @@ export function calculateTuVi(input: CalculateInput): TuViChart {
   if((input.include?.luuNguyet||input.include?.luuNhat)&&!input.asOfDate) warnings.push({code:'timeline.as-of-date-missing',severity:'warning',message:{vi:'Cần asOfDate để tính Lưu Nguyệt hoặc Lưu Nhật.',en:'asOfDate is required to calculate monthly or daily limits.'}});
   if(input.include?.phiHoa) warnings.push({code:'feature.phi-hoa-baseline',severity:'info',message:{vi:'Phi Hóa dùng bảng can cung của profile Vietnamese baseline; trường phái khác có thể dùng quy ước khác.',en:'Flying transformations use the Vietnamese baseline palace-stem table; other schools may differ.'}});
   if(lunar.leap) warnings.push({code:'calendar.leap-month',severity:'info',message:{vi:'Ngày sinh nằm trong tháng âm lịch nhuận.',en:'The birth date falls in a leap lunar month.'}});
-  return {input,palaces,stars,cuc,metadata:{engine:'viet-tuvi-engine',version:'0.1.0',schemaVersion:'0.1.0',ruleSetVersion:'vn-popular-0.2',methodology:`${input.tradition||'vietnamese'} deterministic baseline`,calculatedAt:instant.toISOString(),capabilities:['palaces','14-major-stars','tu-hoa','cuc','relations','audit','localized-facts','warnings','phi-hoa'],sources:getMethodologyManifest().sources},audit:versionedAudit,timeline,relations,facts,warnings,...(phiHoa?{phiHoa}:{})};
+  return {input,palaces,stars,cuc,metadata:{engine:ENGINE_NAME,version:ENGINE_VERSION,schemaVersion:SCHEMA_VERSION,ruleSetVersion:RULE_SET_VERSION,methodology:`${input.tradition||'vietnamese'} deterministic baseline`,calculatedAt:instant.toISOString(),capabilities:['palaces','14-major-stars','tu-hoa','cuc','relations','audit','localized-facts','warnings','phi-hoa'],sources:getMethodologyManifest().sources},audit:versionedAudit,timeline,relations,facts,warnings,...(phiHoa?{phiHoa}:{})};
 }

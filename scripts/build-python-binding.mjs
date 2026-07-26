@@ -3,6 +3,7 @@ import {cpSync,mkdirSync,readFileSync,readdirSync,writeFileSync} from 'node:fs';
 
 const output=new URL('../bindings/python/viet_tuvi_engine/_js/',import.meta.url);
 const sourceRoot=new URL('../dist/',import.meta.url);
+const packageMetadata=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
 mkdirSync(output,{recursive:true});
 
 function collectJavaScriptFiles(directory,prefix=''){
@@ -21,4 +22,4 @@ for(const file of files){
   cpSync(source,target);
   hashes[file]=createHash('sha256').update(readFileSync(source)).digest('hex');
 }
-writeFileSync(new URL('manifest.json',output),`${JSON.stringify({engineVersion:'0.1.0',sha256:hashes},null,2)}\n`);
+writeFileSync(new URL('manifest.json',output),`${JSON.stringify({engineVersion:packageMetadata.version,sha256:hashes},null,2)}\n`);

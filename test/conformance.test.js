@@ -9,6 +9,12 @@ test('lunar new year fixtures and version manifest',()=>{
   const fixtures=JSON.parse(readFileSync(new URL('../fixtures/lunar-new-year.json',import.meta.url)));
   for(const fixture of fixtures) assert.deepEqual(solarToVietnameseLunar(...fixture.solar,7),fixture.lunar);
   const manifest=getMethodologyManifest();
+  const packageMetadata=JSON.parse(readFileSync(new URL('../package.json',import.meta.url)));
+  const pythonMetadata=readFileSync(new URL('../bindings/python/pyproject.toml',import.meta.url),'utf8');
+  const pythonManifest=JSON.parse(readFileSync(new URL('../bindings/python/viet_tuvi_engine/_js/manifest.json',import.meta.url)));
+  assert.equal(manifest.engineVersion,packageMetadata.version);
+  assert.match(pythonMetadata,new RegExp(`^version = "${packageMetadata.version.replaceAll('.','\\.')}"$`,'m'));
+  assert.equal(pythonManifest.engineVersion,packageMetadata.version);
   assert.equal(manifest.ruleSetVersion,'vn-popular-0.2');
   assert.ok(manifest.rules.majorStars);
 });
@@ -38,6 +44,7 @@ test('Python binding ships every generated JavaScript module',()=>{
   assert.ok(manifest.sha256['svg/render.js']);
   assert.ok(manifest.sha256['time.js']);
   assert.ok(manifest.sha256['validation.js']);
+  assert.ok(manifest.sha256['version.js']);
 });
 
 test('calendar boundary fixtures include month rollover and leap month',()=>{

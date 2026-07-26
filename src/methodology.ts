@@ -1,4 +1,11 @@
 import type { ProvenanceSource } from './types.js';
+import {
+  ENGINE_NAME,
+  ENGINE_VERSION,
+  RULE_SET_VERSION,
+  RULE_VERSIONS,
+  SCHEMA_VERSION
+} from './version.js';
 
 const methodologySources: ProvenanceSource[] = [
   { url: 'https://tuvibacphai.com/tuvi', role: 'comparison-oracle' },
@@ -8,9 +15,9 @@ const methodologySources: ProvenanceSource[] = [
 ];
 
 export const capabilities = () => ({
-  engine: 'viet-tuvi-engine',
-  version: '0.1.0',
-  schemaVersion: '0.1.0',
+  engine: ENGINE_NAME,
+  version: ENGINE_VERSION,
+  schemaVersion: SCHEMA_VERSION,
   offline: true,
   features: ['calculate', 'timeline', 'phi-hoa', 'compatibility', 'sensitivity', 'grounded-prompt', 'svg', 'mcp'],
   traditions: { vietnamese: 'baseline', 'trung-chau': 'fallback', custom: 'fallback' },
@@ -34,21 +41,11 @@ export const capabilities = () => ({
 export const getEngineCapabilities = capabilities;
 
 export const getMethodologyManifest = () => ({
-  engineVersion: '0.1.0',
-  schemaVersion: '0.1.0',
-  ruleSetVersion: 'vn-popular-0.2',
+  engineVersion: ENGINE_VERSION,
+  schemaVersion: SCHEMA_VERSION,
+  ruleSetVersion: RULE_SET_VERSION,
   sources: methodologySources,
-  rules: {
-    calendar: 'vn-astronomical-lunar-1',
-    wasmCalendar: 'wasm-calendar-abi-1',
-    trueSolarTime: 'longitude-eot-approx-1',
-    palaces: 'menh-than-lunar-month-hour-1',
-    cuc: 'jiazi-nayin-2',
-    majorStars: 'tuvi-thienphu-groups-1',
-    transformations: 'ten-stem-tu-hoa-1',
-    phiHoa: 'palace-stem-phi-hoa-1',
-    timelines: 'daihan-luunien-baseline-1'
-  }
+  rules: RULE_VERSIONS
 });
 
 export const methodologyResourceText = () => JSON.stringify(getMethodologyManifest(), null, 2);

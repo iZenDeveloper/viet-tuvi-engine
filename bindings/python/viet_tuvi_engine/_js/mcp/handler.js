@@ -9,6 +9,7 @@ import { listMajorStars } from '../stars/major.js';
 import { renderSvg } from '../svg/render.js';
 import { calculateTimeline } from '../timeline/calculate.js';
 import { engineErrorCode, validateInput } from '../validation.js';
+import { ENGINE_NAME, ENGINE_VERSION } from '../version.js';
 export function handleMcpMessage(message) {
     const m = message;
     if (m?.id === undefined && m?.method?.startsWith('notifications/'))
@@ -25,7 +26,7 @@ export function handleMcpMessage(message) {
                         tools: { listChanged: false },
                         resources: { subscribe: false, listChanged: false }
                     },
-                    serverInfo: { name: 'viet-tuvi-engine', version: '0.1.0' }
+                    serverInfo: { name: ENGINE_NAME, version: ENGINE_VERSION }
                 }
             };
         }

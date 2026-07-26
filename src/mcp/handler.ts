@@ -13,6 +13,7 @@ import { listMajorStars } from '../stars/major.js';
 import { renderSvg } from '../svg/render.js';
 import { calculateTimeline } from '../timeline/calculate.js';
 import { engineErrorCode, validateInput } from '../validation.js';
+import { ENGINE_NAME, ENGINE_VERSION } from '../version.js';
 
 type McpMessage = {
   id?: string | number;
@@ -36,7 +37,7 @@ export function handleMcpMessage(message: unknown): Record<string, unknown> | nu
             tools: { listChanged: false },
             resources: { subscribe: false, listChanged: false }
           },
-          serverInfo: { name: 'viet-tuvi-engine', version: '0.1.0' }
+          serverInfo: { name: ENGINE_NAME, version: ENGINE_VERSION }
         }
       };
     }

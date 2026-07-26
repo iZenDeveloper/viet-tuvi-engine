@@ -15,6 +15,8 @@
   `src/index.ts` to the stable public facade and higher-level APIs.
 - Split fixture comparison, validation, sensitivity, compatibility, and
   timeline views into acyclic feature modules over the calculator.
+- Moved MCP message dispatch into a dedicated package subpath and centralized
+  runtime version and rule identifiers for release consistency.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping
