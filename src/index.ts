@@ -1,5 +1,6 @@
 import { solarToVietnameseLunar, type LunarDate } from './calendar.js';
 import { findCity, listVietnamCities, vietnamCities } from './locations.js';
+import { calculateCuc, menhStem, stems } from './rules/cuc.js';
 import { listMajorStars, majorMetadata, majors, majorStarBranches, tuViBranch } from './stars/major.js';
 import type {
   CalculateInput,
@@ -65,25 +66,6 @@ function minorLimitStart(yearBranch:number){
   if([5,9,1].includes(yearBranch))return 7;
   return 1;
 }
-function yearCan(year:number){ return ((year - 4) % 10 + 10) % 10; }
-const stems=['Giáp','Ất','Bính','Đinh','Mậu','Kỷ','Canh','Tân','Nhâm','Quý'];
-const naYinElements=['kim','hoa','moc','tho','kim','hoa','thuy','tho','kim','moc','thuy','tho','hoa','moc','thuy','kim','hoa','moc','tho','kim','hoa','thuy','tho','kim','moc','thuy','tho','hoa','moc','thuy'];
-const cucByElement:Record<string,{code:string;nameVi:string;element:string;number:number}>={
-  thuy:{code:'thuy-nhi-cuc',nameVi:'Thủy nhị cục',element:'thuy',number:2},
-  moc:{code:'moc-tam-cuc',nameVi:'Mộc tam cục',element:'moc',number:3},
-  kim:{code:'kim-tu-cuc',nameVi:'Kim tứ cục',element:'kim',number:4},
-  tho:{code:'tho-ngu-cuc',nameVi:'Thổ ngũ cục',element:'tho',number:5},
-  hoa:{code:'hoa-luc-cuc',nameVi:'Hỏa lục cục',element:'hoa',number:6}
-};
-function menhStem(yearStem:number,menhBranch:number) {
-  const stemAtDan=[2,4,6,8,0][yearStem%5];
-  const branchOffsetFromDan=(menhBranch-2+12)%12;
-  return (stemAtDan+branchOffsetFromDan)%10;
-}
-function sexagenaryIndex(stem:number,branch:number) {
-  for(let i=0;i<60;i++) if(i%10===stem&&i%12===branch) return i;
-  throw new Error('Invalid stem-branch parity');
-}
 function parseLocal(input:CalculateInput){
   if(!Number.isInteger(input.timezoneOffsetMinutes)||input.timezoneOffsetMinutes < -840||input.timezoneOffsetMinutes > 840) throw new Error('timezoneOffsetMinutes must be an integer from -840 to 840');
   const match = input.localDateTime.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/);
@@ -131,9 +113,8 @@ export function calculateTuVi(input: CalculateInput): TuViChart {
   const year = effectiveDate.getUTCFullYear(); const h = hourBranch(effectiveDate);
   const lunar = solarToVietnameseLunar(effectiveDate.getUTCDate(),effectiveDate.getUTCMonth()+1,effectiveDate.getUTCFullYear(),input.timezoneOffsetMinutes/60);
   const menhRaw=2+(lunar.month-1)-h, menh=((menhRaw%12)+12)%12;
-  const than=(2+(lunar.month-1)+h)%12; const can=yearCan(lunar.year);
-  const palaceStem=menhStem(can,menh), cycleIndex=sexagenaryIndex(palaceStem,menh);
-  const cuc=cucByElement[naYinElements[Math.floor(cycleIndex/2)]];
+  const than=(2+(lunar.month-1)+h)%12;
+  const {yearStemIndex:can,palaceStemIndex:palaceStem,cuc}=calculateCuc(lunar.year,menh);
   const starBranches=majorStarBranches(tuViBranch(lunar.day,cuc.number));
   const stars:Star[] = majors.map(([code,name])=>({code,nameVi:name,kind:'major',palaceIndex:((starBranches.get(code) ?? 0)-menh+12)%12,...majorMetadata[code]}));
   const auxiliary:[string,string,number][]=[

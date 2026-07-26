@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { solarToVietnameseLunar } from '../dist/calendar.js';
 import { calculateTuVi, compareChartFixture, getMethodologyManifest } from '../dist/index.js';
@@ -15,10 +16,12 @@ test('lunar new year fixtures and version manifest',()=>{
 test('Python binding ships every generated JavaScript module',()=>{
   const root=new URL('../bindings/python/viet_tuvi_engine/_js/',import.meta.url);
   const manifest=JSON.parse(readFileSync(new URL('manifest.json',root)));
-  for(const modulePath of Object.keys(manifest.sha256)){
-    assert.doesNotThrow(()=>readFileSync(new URL(modulePath,root)),modulePath);
+  for(const [modulePath,expectedHash] of Object.entries(manifest.sha256)){
+    const moduleBytes=readFileSync(new URL(modulePath,root));
+    assert.equal(createHash('sha256').update(moduleBytes).digest('hex'),expectedHash,modulePath);
   }
   assert.ok(manifest.sha256['locations.js']);
+  assert.ok(manifest.sha256['rules/cuc.js']);
   assert.ok(manifest.sha256['stars/major.js']);
 });
 

@@ -1,20 +1,22 @@
 import {createHash} from 'node:crypto';
-import {cpSync,mkdirSync,readFileSync,writeFileSync} from 'node:fs';
+import {cpSync,mkdirSync,readFileSync,readdirSync,writeFileSync} from 'node:fs';
 
 const output=new URL('../bindings/python/viet_tuvi_engine/_js/',import.meta.url);
+const sourceRoot=new URL('../dist/',import.meta.url);
 mkdirSync(output,{recursive:true});
-const files=[
-  'calendar.js',
-  'index.js',
-  'locations.js',
-  'stars/major.js',
-  'types.js',
-  'cli.js',
-  'mcp-server.js'
-];
+
+function collectJavaScriptFiles(directory,prefix=''){
+  return readdirSync(directory,{withFileTypes:true}).flatMap(entry=>{
+    const relative=prefix?`${prefix}/${entry.name}`:entry.name;
+    if(entry.isDirectory())return collectJavaScriptFiles(new URL(`${entry.name}/`,directory),relative);
+    return entry.isFile()&&entry.name.endsWith('.js')?[relative]:[];
+  });
+}
+
+const files=collectJavaScriptFiles(sourceRoot).sort();
 const hashes={};
 for(const file of files){
-  const source=new URL(`../dist/${file}`,import.meta.url),target=new URL(file,output);
+  const source=new URL(file,sourceRoot),target=new URL(file,output);
   mkdirSync(new URL('.',target),{recursive:true});
   cpSync(source,target);
   hashes[file]=createHash('sha256').update(readFileSync(source)).digest('hex');
