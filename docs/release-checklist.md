@@ -10,6 +10,7 @@
 - [x] Standalone Python wheel bundles the JavaScript snapshot
 - [x] Browser demo desktop/mobile verification
 - [x] npm package dry-run
+- [x] Automated release consistency and artifact-integrity gate
 - [x] Versioned audit and methodology manifest
 - [x] Provenance roles for external research
 - [x] Public-calculator comparison oracle with captured options and retrieval date

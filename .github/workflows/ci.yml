@@ -18,7 +18,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - run: npm pack --dry-run
+      - run: npm run check:release
 
   python-binding:
     runs-on: ubuntu-latest

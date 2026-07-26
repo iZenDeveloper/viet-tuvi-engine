@@ -41,3 +41,15 @@ on the repository layout.
 ## Determinism
 
 Calculation output depends only on input and versioned rule tables. `metadata.calculatedAt` is derived from the input instant, not the system clock. Any rule change must add or update a fixture and the methodology manifest.
+
+## Release verification
+
+Run the same release gate used by CI:
+
+```sh
+npm run check:release
+```
+
+It verifies npm, runtime, MCP, and Python version parity; package entrypoints;
+the Python JavaScript snapshot; the WASM integrity manifest; MIT licensing;
+and the npm tarball contents. It does not create a tag or publish a package.
