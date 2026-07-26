@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { calculateTuVi, calculateTimeline, compareChartFixture, sensitivity, compatibility, createGroundedPrompt, renderSvg, handleMcpMessage, validateInput, listVietnamCities, listMajorStars } from '../dist/index.js';
+import { handleMcpMessage as handleMcpMessageFromSubpath } from '../dist/mcp/handler.js';
 import { solarToVietnameseLunar } from '../dist/calendar.js';
 test('calculates deterministic chart shape', () => {
   const input={localDateTime:'1990-05-17T14:30:00',timezoneOffsetMinutes:420,gender:'female',asOfYear:2026,asOfDate:'2026-07-26',include:{daiHan:true,tieuHan:true,luuNien:true,luuNguyet:true,luuNhat:true}};
@@ -37,6 +38,7 @@ test('calculates deterministic chart shape', () => {
   assert.match(svg,/Rule set vn-popular-0\.2/);
   assert.equal(handleMcpMessage({id:1,method:'capabilities'}).result.engine, 'viet-tuvi-engine');
   assert.equal(handleMcpMessage({id:2,method:'initialize'}).result.protocolVersion,'2025-06-18');
+  assert.equal(handleMcpMessageFromSubpath({id:2,method:'initialize'}).result.protocolVersion,'2025-06-18');
   assert.equal(handleMcpMessage({id:14,method:'resources/list'}).result.resources.length,2);
   const resource=handleMcpMessage({id:15,method:'resources/read',params:{uri:'tuvi://methodology'}});
   assert.match(resource.result.contents[0].text,/vn-popular-0\.2/);

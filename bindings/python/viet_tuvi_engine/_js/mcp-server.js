@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createInterface } from 'node:readline';
-import { handleMcpMessage } from './index.js';
+import { handleMcpMessage } from './mcp/handler.js';
 const lines = createInterface({ input: process.stdin, terminal: false });
 lines.on('line', (line) => {
     if (!line.trim())

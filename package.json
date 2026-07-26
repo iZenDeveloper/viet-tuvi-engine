@@ -34,6 +34,10 @@
       "types": "./dist/wasm.d.ts",
       "import": "./dist/wasm.js"
     },
+    "./mcp": {
+      "types": "./dist/mcp/handler.d.ts",
+      "import": "./dist/mcp/handler.js"
+    },
     "./schema/chart": "./schemas/chart.schema.json",
     "./schema/input": "./schemas/calculate-input.schema.json",
     "./schema/research-fixture": "./schemas/research-fixture.schema.json",
@@ -45,7 +49,9 @@
     "dist",
     "schemas",
     "fixtures",
-    "bindings/python/viet_tuvi_engine",
+    "bindings/python/viet_tuvi_engine/__init__.py",
+    "bindings/python/viet_tuvi_engine/client.py",
+    "bindings/python/viet_tuvi_engine/_js",
     "bindings/python/pyproject.toml",
     "bindings/python/README.md",
     "bindings/wasm",
