@@ -1,7 +1,7 @@
 # Architecture
 
-The TypeScript core is a modular monolith. `src/index.ts` owns calculation
-orchestration and the stable public API, while `src/types.ts`,
+The TypeScript core is a modular monolith. `src/calculate.ts` owns calculation
+orchestration, while `src/index.ts` is the stable public facade. `src/types.ts`,
 `src/locations.ts`, `src/calendar.ts`, and `src/stars/major.ts` own focused
 domain contracts and rule data. `src/rules/cuc.ts` owns the Five Tiger Escape,
 60 Jiazi Na Yin, and Five Element Bureau calculation. Auxiliary-star and

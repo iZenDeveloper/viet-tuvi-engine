@@ -20,6 +20,7 @@ test('Python binding ships every generated JavaScript module',()=>{
     const moduleBytes=readFileSync(new URL(modulePath,root));
     assert.equal(createHash('sha256').update(moduleBytes).digest('hex'),expectedHash,modulePath);
   }
+  assert.ok(manifest.sha256['calculate.js']);
   assert.ok(manifest.sha256['locations.js']);
   assert.ok(manifest.sha256['methodology.js']);
   assert.ok(manifest.sha256['domain.js']);
