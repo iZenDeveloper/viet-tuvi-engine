@@ -42,7 +42,9 @@ The result contains 12 palaces, 14 major stars, auxiliary star cycles, Tứ Hóa
 - `compareChartFixture(input, expected)` compares stable fields against an oracle fixture.
 - `handleMcpMessage(message)` handles MCP/JSON-RPC messages in-process.
 
-JSON Schemas use Draft 2020-12 and are exported as `viet-tuvi-engine/schema/input` and `viet-tuvi-engine/schema/chart`.
+JSON Schemas use Draft 2020-12. Calculation, chart, oracle-fixture, and
+research contracts are exported from the corresponding
+`viet-tuvi-engine/schema/*` package subpaths.
 
 ## Research evidence
 

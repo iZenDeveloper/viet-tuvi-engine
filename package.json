@@ -40,6 +40,7 @@
     },
     "./schema/chart": "./schemas/chart.schema.json",
     "./schema/input": "./schemas/calculate-input.schema.json",
+    "./schema/oracle-fixture": "./schemas/oracle-fixture.schema.json",
     "./schema/research-fixture": "./schemas/research-fixture.schema.json",
     "./schema/source-manifest": "./schemas/source-manifest.schema.json",
     "./schema/profile-matrix": "./schemas/profile-matrix.schema.json",

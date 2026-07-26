@@ -53,6 +53,10 @@ Public calculator fixtures belong under `fixtures/oracle/`. Unverified
 research belongs under `fixtures/research/` or `docs/research/imported/` and
 must remain isolated from runtime rule tables.
 
+Oracle submissions must validate against
+`schemas/oracle-fixture.schema.json`. Research datasets use
+`schemas/research-fixture.schema.json`.
+
 ## Pull Requests
 
 Keep changes narrowly scoped. A pull request changing calculation behavior

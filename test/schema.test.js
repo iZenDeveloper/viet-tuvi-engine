@@ -22,3 +22,21 @@ test('calculation input and chart output conform to Draft 2020-12 schemas',()=>{
   assert.equal(validateChart(calculateTuVi(input)),true,JSON.stringify(validateChart.errors));
   assert.equal(validateChart(calculateTuVi({...input,include:{...input.include,phiHoa:true}})),true,JSON.stringify(validateChart.errors));
 });
+
+test('oracle fixtures conform to the provenance-aware Draft 2020-12 schema',()=>{
+  const ajv=new Ajv2020({allErrors:true,strict:true});
+  addFormats(ajv);
+  ajv.addSchema(load('calculate-input.schema.json'));
+  const validateOracle=ajv.compile(load('oracle-fixture.schema.json'));
+  const fixtures=[
+    '../fixtures/oracle-fixture.example.json',
+    '../fixtures/oracle/public-tuvibacphai-1990-05-17.json',
+    '../fixtures/oracle/public-tuvibacphai-cases.json',
+    '../fixtures/oracle/public-tuvibacphai-cases-10.json',
+    '../fixtures/oracle/public-tuvibacphai-cases-20.json'
+  ];
+  for(const path of fixtures){
+    const fixture=JSON.parse(readFileSync(new URL(path,import.meta.url)));
+    assert.equal(validateOracle(fixture),true,`${path}: ${JSON.stringify(validateOracle.errors)}`);
+  }
+});

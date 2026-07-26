@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viet-tuvi-engine.dev/schemas/oracle-fixture-0.1.0.json",
+  "title": "viet-tuvi-engine oracle fixture",
+  "oneOf": [
+    {"$ref": "#/$defs/singleFixture"},
+    {"$ref": "#/$defs/fixtureBundle"}
+  ],
+  "$defs": {
+    "classification": {
+      "enum": ["comparison-oracle", "expert-approved-oracle", "primary-source"]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url", "retrievedAt", "method"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "retrievedAt": {"type": "string", "format": "date"},
+        "method": {"type": "string", "minLength": 1},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    },
+    "calculatorOptions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "anyOf": [
+          {"type": "string"},
+          {"type": "number"},
+          {"type": "boolean"},
+          {"type": "null"}
+        ]
+      }
+    },
+    "expected": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "cuc": {
+          "type": "object",
+          "required": ["code"],
+          "properties": {
+            "code": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": true
+        },
+        "palaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["index"],
+            "properties": {
+              "index": {"type": "integer", "minimum": 0, "maximum": 11},
+              "branch": {"type": "string", "minLength": 1},
+              "isMenh": {"type": "boolean"},
+              "isThan": {"type": "boolean"}
+            },
+            "additionalProperties": true
+          }
+        },
+        "stars": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["code", "palaceIndex"],
+            "properties": {
+              "code": {"type": "string", "minLength": 1},
+              "palaceIndex": {"type": "integer", "minimum": 0, "maximum": 11}
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "input", "expected"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "input": {
+          "$ref": "https://viet-tuvi-engine.dev/schemas/calculate-input-0.1.0.json"
+        },
+        "expected": {"$ref": "#/$defs/expected"},
+        "expectedEngineMatch": {"type": "boolean"},
+        "expectedDiffPaths": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "singleFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "classification", "source", "calculatorOptions", "input", "expected"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "classification": {"$ref": "#/$defs/classification"},
+        "source": {"$ref": "#/$defs/source"},
+        "calculatorOptions": {"$ref": "#/$defs/calculatorOptions"},
+        "input": {
+          "$ref": "https://viet-tuvi-engine.dev/schemas/calculate-input-0.1.0.json"
+        },
+        "expected": {"$ref": "#/$defs/expected"},
+        "expectedEngineMatch": {"type": "boolean"},
+        "expectedDiffPaths": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "fixtureBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "source", "calculatorOptions", "cases"],
+      "properties": {
+        "classification": {"$ref": "#/$defs/classification"},
+        "source": {"$ref": "#/$defs/source"},
+        "calculatorOptions": {"$ref": "#/$defs/calculatorOptions"},
+        "coverage": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        },
+        "cases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/case"}
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,15 @@
 {
+  "id": "replace-with-stable-fixture-id",
+  "classification": "comparison-oracle",
+  "source": {
+    "name": "replace-with-source-name",
+    "url": "https://example.com/calculator-or-publication",
+    "retrievedAt": "2026-07-26",
+    "method": "replace-with-observation-method"
+  },
+  "calculatorOptions": {
+    "profile": "replace-with-exact-profile-and-options"
+  },
   "input": {
     "localDateTime": "1990-05-17T14:30:00",
     "timezoneOffsetMinutes": 420,
