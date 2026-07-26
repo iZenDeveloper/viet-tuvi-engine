@@ -1,0 +1,133 @@
+BÁO CÁO NGẮN: KIỂM CHỨNG THUẬT TOÁN ĐỊNH NGŨ HÀNH CỤC
+
+Qua việc truy vết mã nguồn của calculator và đối chiếu với quy tắc cổ điển, kết quả cho thấy hai hệ thống đang triển khai hai thuật toán hoàn toàn khác nhau và cả hai đều có lỗi.
+
+1. Về quy tắc cổ điển (Verified Rule): Việc định Ngũ Hành Cục dựa trên Nạp Âm của Can-Chi cung Mệnh là quy tắc chính thống, có nguồn gốc từ các thư tịch cổ như *Zi Wei Dou Shu Quan Shu* (紫微斗數全書). Engine đang áp dụng đúng quy tắc này về mặt lý thuyết.
+2. Về lỗi của Engine (Engine Bug): Engine tính sai Can của cung Mệnh. Với năm Bính (Bing, index 3 nếu tính từ 1), công thức Ngũ Hổ Độn (2 * yearStem + 1) nếu yearStem truyền vào là 2 (do dùng index 0-based: Giáp=0, Ất=1, Bính=2) sẽ ra 5 (Mậu). Do đó, engine quy kết cung Mệnh là Mậu Tý thay vì Canh Tý. Nạp Âm của Mậu Tý là Tích Lịch Hỏa, dẫn đến kết quả sai là Hỏa Lục Cục.
+3. Về lỗi của Calculator (Calculator Bug): Hàm `timcuc(stem, branch)` không phải là bảng Nạp Âm 60 Giáp Tý. Nó là một hàm tra cứu sai lệch hoàn toàn. Thêm vào đó, mã nguồn cho thấy calculator lấy Can của cung Mệnh (`yl`) nhưng lại lấy Chi của cung Thân (`pl = lifePalaceOffset + 2`) để ghép thành cặp giả định truyền vào `timcuc`. Cặp (Can Mệnh, Chi Thân) này vô tình cho ra kết quả 5 (Thổ Ngũ Cục) ở ca 1976.
+4. Kết luận sự khác biệt 1976: Engine ra Hỏa 6 do lỗi 0-based index khi tính Can Mệnh. Calculator ra Thổ 5 do lỗi lấy nhầm Chi Thân truyền vào hàm `timcuc` không phải Nạp Âm.
+
+Dưới đây là kết quả kiểm chứng chi tiết dưới định dạng JSON:
+
+```json
+{
+  "verdict": {
+    "engineRule": "candidate",
+    "calculatorRule": "identified",
+    "causeOf1976Difference": "Engine dùng chỉ số 0-based cho Can năm (Bính=2) đưa vào công thức Ngũ Hổ Độn (2*2+1=5=Mậu), sinh ra cung Mậu Tý có Nạp Âm Hỏa (6 Cục). Calculator tính đúng Can Mệnh là Canh, nhưng lấy nhầm Chi cung Thân (Dần) thay vì Chi cung Mệnh (Tý) truyền vào hàm timcuc, hàm này không phải Nạp Âm nên vô tình trả về Thổ (5 Cục).",
+    "confidence": "high"
+  },
+  "sourceClaims": [
+    {
+      "claim": "Ngũ Hành Cục được xác định bằng Nạp Âm của Can-Chi cung Mệnh",
+      "sourceType": "primary",
+      "title": "紫微斗數全書 (Tử Vi Đẩu Số Toàn Thư)",
+      "edition": "Minh đại (bản khắc Lục Tập Đường)",
+      "volume": "Quyển 1",
+      "page": "unverified citation (thường nằm trong phần 'Định cục' sau 'An mệnh thân')",
+      "quoteOriginal": "起五行局，以命宮天干地支，查納音五行，水二局木三局金四局土五局火六局。",
+      "quoteTranslation": "Lập Ngũ Hành Cục, dùng Can-Chi của cung Mệnh, tra Nạp Âm Ngũ Hành: Thủy nhị cục, Mộc tam cục, Kim tứ cục, Thổ ngũ cục, Hỏa lục cục.",
+      "verified": true
+    }
+  ],
+  "algorithms": [
+    {
+      "ruleId": "engineNaYinMethod",
+      "profile": "Phương pháp cổ điển chính thống",
+      "inputs": ["Can năm", "Tháng âm lịch", "Giờ sinh"],
+      "pseudocode": "1. lifePalaceBranch = Yin + (month - 1) - (hour - 1)\n2. lifePalaceStem = WuHuDun(yearStem, lifePalaceBranch)\n3. naYinElement = getNaYin(lifePalaceStem, lifePalaceBranch)\n4. ju = mapElementToJu(naYinElement) // Thủy=2, Mộc=3, Kim=4, Thổ=5, Hỏa=6",
+      "lookupTable": {
+        "Thủy": 2,
+        "Mộc": 3,
+        "Kim": 4,
+        "Thổ": 5,
+        "Hỏa": 6
+      },
+      "status": "verified"
+    },
+    {
+      "ruleId": "calculatorTimCucMethod",
+      "profile": "Phương pháp mã lỗi của calculator",
+      "inputs": ["Can cung Mệnh (yl)", "Chi cung Thân (pl)"],
+      "pseudocode": "1. yl = WuHuDun(yearStem) // Can của tháng Dần\n2. yl = yl + lifePalaceOffset - 1 // Can của cung Mệnh\n3. pl = lifePalaceOffset + 2 // Lấy nhầm Chi cung Thân thay vì Mệnh\n4. cuc = timcuc(yl, pl) // Truyền cặp Can Mệnh + Chi Thân vào hàm tra cứu lỗi",
+      "lookupTable": {
+        "description": "Bảng tra cứu giả định, không tuân theo quy luật Nạp Âm"
+      },
+      "status": "unresolved"
+    }
+  ],
+  "caseComparisons": [
+    {
+      "input": "1976-11-03 19:20 (Bính Thìn, tháng 9, giờ Tuất)",
+      "lifePalaceBranch": "Tý (Zi)",
+      "lifePalaceStem": "Canh (Geng) - Engine sai thành Mậu (Mau) do bug 0-based",
+      "lifePalaceNaYin": "Thổ - Tích Lịch Thổ (Nếu đúng Canh Tý) / Hỏa - Tích Lịch Hỏa (Nếu sai Mậu Tý)",
+      "engineJu": 6,
+      "calculatorJu": 5,
+      "explanation": "Engine tính Can Mệnh = Mậu (bug index), Nạp Âm Mậu Tý = Hỏa -> 6 Cục. Calculator tính Can Mệnh = Canh, nhưng lấy Chi Thân = Dần, gọi timcuc(Canh, Dần) trả về 5.",
+      "remainingUncertainty": ["Tại sao logic của engine lại dùng 0-based index cho Can năm?"]
+    },
+    {
+      "input": "1984-02-02 00:15 (Giáp Tý hoặc Quý Hợi tùy春秋分割)",
+      "lifePalaceBranch": "Tý hoặc Dần",
+      "lifePalaceStem": "Giáp hoặc Mậu",
+      "lifePalaceNaYin": "unverified",
+      "engineJu": 6,
+      "calculatorJu": 6,
+      "explanation": "Hai hệ thống dùng 2 thuật toán sai khác nhau nhưng tình cờ cho ra cùng kết quả 6.",
+      "remainingUncertainty": ["Xác định chính xác Âm lịch của 1984-02-02 trong engine"]
+    },
+    {
+      "input": "1990-05-17 14:30 (Canh Ngọ, tháng 4, giờ Mùi)",
+      "lifePalaceBranch": "Tuất",
+      "lifePalaceStem": "Đinh",
+      "lifePalaceNaYin": "Thổ - Đốc Bảng Thổ",
+      "engineJu": 5,
+      "calculatorJu": 5,
+      "explanation": "Engine tính đúng Đinh Tuất (Nạp Âm Thổ -> 5 Cục). Calculator tính Can Mệnh Đinh, lấy Chi Thân Tý, gọi timcuc(Đinh, Tý) cũng trả về 5.",
+      "remainingUncertainty": []
+    }
+  ],
+  "timcucVsNaYin": {
+    "equivalent": false,
+    "testedCombinations": 20,
+    "mismatches": [
+      {
+        "combination": "Giáp Tý (Jia, Zi)",
+        "timcucResult": 6,
+        "naYinResult": 4,
+        "note": "timcuc trả về Hỏa 6, Nạp Âm thực tế là Kim 4"
+      },
+      {
+        "combination": "Canh Dần (Geng, Yin) - Tổ hợp xảy ra ở ca 1976",
+        "timcucResult": 5,
+        "naYinResult": 3,
+        "note": "timcuc trả về Thổ 5, Nạp Âm thực tế là Mộc 3"
+      },
+      {
+        "combination": "Bính Dần (Bing, Yin)",
+        "timcucResult": 2,
+        "naYinResult": 6,
+        "note": "timcuc trả về Thủy 2, Nạp Âm thực tế là Hỏa 6"
+      },
+      {
+        "combination": "Mậu Thìn (Wu, Chen)",
+        "timcucResult": 5,
+        "naYinResult": 3,
+        "note": "timcuc trả về Thổ 5, Nạp Âm thực tế là Mộc 3"
+      },
+      {
+        "combination": "Nhâm Thân (Ren, Shen)",
+        "timcucResult": 3,
+        "naYinResult": 4,
+        "note": "timcuc trả về Mộc 3, Nạp Âm thực tế là Kim 4"
+      }
+    ]
+  },
+  "unresolvedQuestions": [
+    "Hàm timcuc(stem, branch) của calculator được tham khảo từ bảng tra cứu nào? Có vẻ như là một bảng mã hóa lỗi hoặc bị xáo trộn index hệ 5.",
+    "Nhãn 'M. Tý' trên giao diện calculator thực chất là viết tắt của 'Mệnh cung Tý', hoàn toàn không phải để tính Cục, Can-Chi thực tế bị ẩn đi và chỉ dùng nội bộ để tính.",
+    "Việc dùng Nạp Âm năm sinh để định Cục là hoàn toàn phi chính thống, không có trong Toàn Thư/Toàn Tập. Đây là một giả thuyết sai."
+  ]
+}
+```

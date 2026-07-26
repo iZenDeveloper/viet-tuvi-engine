@@ -13,3 +13,13 @@ secondary-source formulas for the position of Tử Vi remain
 The 25 research cases are stored separately in
 `fixtures/research/research-fixtures.json`. They are schema-checked
 observations, not oracle conformance fixtures.
+
+Model-generated investigations are preserved verbatim for audit:
+
+- `deepseek-wu-xing-ju-review.json`
+- `qwen-wu-xing-ju-review.txt`
+- `glm-5.2-wu-xing-ju-review.txt`
+
+Their evaluated conclusions live in adjacent assessment documents under
+`docs/research/`. A model response is never promoted to an executable rule
+without reproducible evidence.
