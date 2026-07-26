@@ -1,6 +1,7 @@
 # viet-tuvi-engine
 
 [![CI](https://github.com/iZenDeveloper/viet-tuvi-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/iZenDeveloper/viet-tuvi-engine/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Deterministic, offline-first Vietnamese Tử Vi Đẩu Số engine. TypeScript is the source of truth; the CLI, MCP server, demo, and Python binding all call the same calculation core.
 

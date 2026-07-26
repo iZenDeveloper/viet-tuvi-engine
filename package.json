@@ -2,6 +2,7 @@
   "name": "viet-tuvi-engine",
   "version": "0.1.0",
   "description": "Deterministic, offline-first Vietnamese Tu Vi calculation engine",
+  "license": "MIT",
   "keywords": [
     "tu-vi",
     "zi-wei-dou-shu",
@@ -48,6 +49,7 @@
     "bindings/python/pyproject.toml",
     "bindings/python/README.md",
     "bindings/wasm",
+    "LICENSE",
     "README.md",
     "CHANGELOG.md"
   ],
