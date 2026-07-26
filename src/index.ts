@@ -1,7 +1,18 @@
 import { solarToVietnameseLunar, type LunarDate } from './calendar.js';
 import { findCity, listVietnamCities, vietnamCities } from './locations.js';
 import { calculateCuc, menhStem, stems } from './rules/cuc.js';
+import {
+  bacSiCycle,
+  groupStarBranch,
+  khoiVietBranches,
+  lifeCycle,
+  lifeStart,
+  locTonBranch,
+  thaiTueCycle
+} from './stars/auxiliary.js';
 import { listMajorStars, majorMetadata, majors, majorStarBranches, tuViBranch } from './stars/major.js';
+import { hoaByCan } from './stars/transformations.js';
+import { minorLimitStart } from './timeline/rules.js';
 import type {
   CalculateInput,
   ChartFact,
@@ -29,43 +40,6 @@ export { listMajorStars, listVietnamCities, vietnamCities };
 
 const branches = ['Tý','Sửu','Dần','Mão','Thìn','Tỵ','Ngọ','Mùi','Thân','Dậu','Tuất','Hợi'];
 const palaceNames = ['Mệnh','Phụ Mẫu','Phúc Đức','Điền Trạch','Quan Lộc','Nô Bộc','Thiên Di','Tật Ách','Tài Bạch','Tử Tức','Phu Thê','Huynh Đệ'];
-const hoaByCan: Record<number, string[]> = {
-  0:['liem-trinh','pha-quan','vu-khuc','thai-duong'],1:['thien-co','thien-luong','tu-vi','thai-am'],
-  2:['thien-dong','thien-co','van-xuong','liem-trinh'],3:['thai-am','thien-dong','thien-co','cu-mon'],
-  4:['tham-lang','thai-am','huu-bat','thien-co'],5:['vu-khuc','tham-lang','thien-luong','van-khuc'],
-  6:['thai-duong','vu-khuc','thai-am','thien-dong'],7:['cu-mon','thai-duong','van-khuc','van-xuong'],
-  8:['thien-luong','tu-vi','ta-phu','vu-khuc'],9:['pha-quan','cu-mon','thai-am','tham-lang']
-};
-const locTonBranch=[2,3,5,6,5,6,8,9,11,0];
-const lifeCycle:[string,string][]=[
-  ['trang-sinh','Tràng Sinh'],['moc-duc','Mộc Dục'],['quan-doi','Quan Đới'],['lam-quan','Lâm Quan'],
-  ['de-vuong','Đế Vượng'],['suy','Suy'],['benh','Bệnh'],['tu','Tử'],['mo','Mộ'],['tuyet','Tuyệt'],
-  ['thai','Thai'],['duong','Dưỡng']
-];
-const lifeStart:Record<string,number>={moc:11,hoa:2,tho:8,kim:5,thuy:8};
-const thaiTueCycle:[string,string][]=[
-  ['thai-tue','Thái Tuế'],['thieu-duong','Thiếu Dương'],['tang-mon','Tang Môn'],['thieu-am','Thiếu Âm'],
-  ['quan-phu','Quan Phù'],['tu-phu','Tử Phù'],['tue-pha','Tuế Phá'],['long-duc','Long Đức'],
-  ['bach-ho','Bạch Hổ'],['phuc-duc','Phúc Đức'],['dieu-khach','Điếu Khách'],['truc-phu','Trực Phù']
-];
-const bacSiCycle:[string,string][]=[
-  ['bac-si','Bác Sĩ'],['luc-si','Lực Sĩ'],['thanh-long','Thanh Long'],['tieu-hao','Tiểu Hao'],
-  ['tuong-quan','Tướng Quân'],['tau-thu','Tấu Thư'],['phi-liem','Phi Liêm'],['hy-than','Hỷ Thần'],
-  ['benh-phu','Bệnh Phù'],['dai-hao','Đại Hao'],['phuc-binh','Phục Binh'],['quan-phu-bac-si','Quan Phủ']
-];
-const khoiVietBranches:[[number,number],[number,number],[number,number],[number,number],[number,number],[number,number],[number,number],[number,number],[number,number],[number,number]]=[
-  [1,7],[0,8],[11,9],[11,9],[1,7],[0,8],[6,2],[6,2],[3,5],[3,5]
-];
-function groupStarBranch(yearBranch:number,star:'thien-ma'|'dao-hoa'){
-  const group=yearBranch%4;
-  return star==='thien-ma'?[2,11,8,5][group]:[9,6,3,0][group];
-}
-function minorLimitStart(yearBranch:number){
-  if([2,6,10].includes(yearBranch))return 4;
-  if([8,0,4].includes(yearBranch))return 10;
-  if([5,9,1].includes(yearBranch))return 7;
-  return 1;
-}
 function parseLocal(input:CalculateInput){
   if(!Number.isInteger(input.timezoneOffsetMinutes)||input.timezoneOffsetMinutes < -840||input.timezoneOffsetMinutes > 840) throw new Error('timezoneOffsetMinutes must be an integer from -840 to 840');
   const match = input.localDateTime.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/);
