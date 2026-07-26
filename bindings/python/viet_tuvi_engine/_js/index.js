@@ -1,13 +1,15 @@
 import { solarToVietnameseLunar } from './calendar.js';
 import { findCity, listVietnamCities, vietnamCities } from './locations.js';
+import { capabilities, getEngineCapabilities, getMethodologyManifest, methodologyResourceText } from './methodology.js';
 import { createGroundedPrompt } from './prompts/grounded.js';
+import { buildRelations } from './relations.js';
 import { calculateCuc, menhStem, stems } from './rules/cuc.js';
 import { bacSiCycle, groupStarBranch, khoiVietBranches, lifeCycle, lifeStart, locTonBranch, thaiTueCycle } from './stars/auxiliary.js';
 import { listMajorStars, majorMetadata, majors, majorStarBranches, tuViBranch } from './stars/major.js';
 import { hoaByCan } from './stars/transformations.js';
 import { renderSvg } from './svg/render.js';
 import { minorLimitStart } from './timeline/rules.js';
-export { createGroundedPrompt, listMajorStars, listVietnamCities, renderSvg, vietnamCities };
+export { capabilities, createGroundedPrompt, getEngineCapabilities, getMethodologyManifest, listMajorStars, listVietnamCities, renderSvg, vietnamCities };
 const branches = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
 const palaceNames = ['Mệnh', 'Phụ Mẫu', 'Phúc Đức', 'Điền Trạch', 'Quan Lộc', 'Nô Bộc', 'Thiên Di', 'Tật Ách', 'Tài Bạch', 'Tử Tức', 'Phu Thê', 'Huynh Đệ'];
 function parseLocal(input) {
@@ -121,15 +123,7 @@ export function calculateTuVi(input) {
             return [{ code: `phi-hoa.${p.index}.${transformation}.${starCode}.${target.palaceIndex}`, sourcePalaceIndex: p.index, targetPalaceIndex: target.palaceIndex, sourceStem: stems[stem], starCode, transformation }];
         });
     }) : undefined;
-    const relation = (type, from, to) => ({ code: `relation.${type}.${from}.${to}`, type, from, to });
-    const xungRelations = Array.from({ length: 6 }, (_, i) => relation('xung', i, i + 6));
-    const tamHopRelations = Array.from({ length: 12 }, (_, i) => relation('tam-hop', i, (i + 4) % 12));
-    const lucHopRelations = [[0, 1], [2, 11], [3, 10], [4, 9], [5, 8], [6, 7]].map(([a, b]) => {
-        const from = (a - menh + 12) % 12, to = (b - menh + 12) % 12;
-        return relation('luc-hop', Math.min(from, to), Math.max(from, to));
-    });
-    const chieuRelations = Array.from({ length: 12 }, (_, i) => relation('chieu', i, (i + 6) % 12));
-    const relations = [...xungRelations, ...tamHopRelations, ...lucHopRelations, ...chieuRelations];
+    const relations = buildRelations(menh);
     let asOfLunar, asOfYearBranch, dauQuanBranch, luuNguyetBranch, luuNhatBranch;
     if (input.asOfDate) {
         const [ay, am, ad] = input.asOfDate.split('-').map(Number);
@@ -205,29 +199,6 @@ export function calculateTuVi(input) {
         warnings.push({ code: 'calendar.leap-month', severity: 'info', message: { vi: 'Ngày sinh nằm trong tháng âm lịch nhuận.', en: 'The birth date falls in a leap lunar month.' } });
     return { input, palaces, stars, cuc, metadata: { engine: 'viet-tuvi-engine', version: '0.1.0', schemaVersion: '0.1.0', ruleSetVersion: 'vn-popular-0.2', methodology: `${input.tradition || 'vietnamese'} deterministic baseline`, calculatedAt: instant.toISOString(), capabilities: ['palaces', '14-major-stars', 'tu-hoa', 'cuc', 'relations', 'audit', 'localized-facts', 'warnings', 'phi-hoa'], sources: getMethodologyManifest().sources }, audit: versionedAudit, timeline, relations, facts, warnings, ...(phiHoa ? { phiHoa } : {}) };
 }
-export const capabilities = () => ({
-    engine: 'viet-tuvi-engine', version: '0.1.0', schemaVersion: '0.1.0', offline: true,
-    features: ['calculate', 'timeline', 'phi-hoa', 'compatibility', 'sensitivity', 'grounded-prompt', 'svg', 'mcp'],
-    traditions: { vietnamese: 'baseline', 'trung-chau': 'fallback', custom: 'fallback' },
-    timeline: { daiHan: 'baseline', tieuHan: 'baseline', luuNien: 'baseline', luuNguyet: 'baseline', luuNhat: 'baseline' },
-    status: { core: 'stable-baseline', svg: 'available', mcp: 'available', python: 'available', phiHoa: 'baseline', wasm: 'available' }
-});
-export const getEngineCapabilities = capabilities;
-const methodologySources = [
-    { url: 'https://tuvibacphai.com/tuvi', role: 'comparison-oracle' },
-    { url: 'https://tuvivietnam.vn/so-luoc-ve-lich-su-tu-vi-trung-hoa-noi-chung-va-trung-chau-phai-noi-rieng/', role: 'reference-only' },
-    { url: 'https://tuvivietnam.vn/trung-chau-phai/', role: 'reference-only' },
-    { url: 'https://tuvitrungchau.com', role: 'reference-only' }
-];
-const methodologyResourceText = () => JSON.stringify(getMethodologyManifest(), null, 2);
-export const getMethodologyManifest = () => ({
-    engineVersion: '0.1.0', schemaVersion: '0.1.0', ruleSetVersion: 'vn-popular-0.2',
-    sources: methodologySources,
-    rules: { calendar: 'vn-astronomical-lunar-1', wasmCalendar: 'wasm-calendar-abi-1', trueSolarTime: 'longitude-eot-approx-1',
-        palaces: 'menh-than-lunar-month-hour-1', cuc: 'jiazi-nayin-2',
-        majorStars: 'tuvi-thienphu-groups-1', transformations: 'ten-stem-tu-hoa-1',
-        phiHoa: 'palace-stem-phi-hoa-1', timelines: 'daihan-luunien-baseline-1' }
-});
 export function serializeChart(chart) {
     return JSON.stringify(chart);
 }

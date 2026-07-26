@@ -21,7 +21,9 @@ test('Python binding ships every generated JavaScript module',()=>{
     assert.equal(createHash('sha256').update(moduleBytes).digest('hex'),expectedHash,modulePath);
   }
   assert.ok(manifest.sha256['locations.js']);
+  assert.ok(manifest.sha256['methodology.js']);
   assert.ok(manifest.sha256['prompts/grounded.js']);
+  assert.ok(manifest.sha256['relations.js']);
   assert.ok(manifest.sha256['rules/cuc.js']);
   assert.ok(manifest.sha256['stars/auxiliary.js']);
   assert.ok(manifest.sha256['stars/major.js']);
