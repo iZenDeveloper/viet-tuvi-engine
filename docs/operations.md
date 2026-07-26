@@ -70,4 +70,6 @@ The command writes versioned files under `release-artifacts/` and includes a
 commit-bound `release-manifest.json` plus `SHA256SUMS`. It refuses to overwrite
 a non-empty artifact directory. The manual GitHub `release-artifacts` workflow
 runs the same command with read-only repository permissions and retains its
-uploaded artifact for 14 days. It cannot create tags or publish packages.
+uploaded artifact for 14 days. Python wheel timestamps use the commit time
+through `SOURCE_DATE_EPOCH` for reproducible builds. The workflow cannot create
+tags or publish packages.

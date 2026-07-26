@@ -21,6 +21,14 @@ const configuredOutput = process.env.VIET_TUVI_ARTIFACT_DIR;
 const output = configuredOutput
   ? (isAbsolute(configuredOutput) ? configuredOutput : resolve(root, configuredOutput))
   : join(root, 'release-artifacts', `v${packageMetadata.version}`);
+const commit = execFileSync('git', ['rev-parse', 'HEAD'], {
+  cwd: root,
+  encoding: 'utf8'
+}).trim();
+const sourceDateEpoch = execFileSync('git', ['show', '-s', '--format=%ct', 'HEAD'], {
+  cwd: root,
+  encoding: 'utf8'
+}).trim();
 const temporaryRoot = mkdtempSync(join(tmpdir(), 'viet-tuvi-artifacts-'));
 
 if (existsSync(output) && readdirSync(output).length > 0) {
@@ -61,7 +69,10 @@ try {
     '--disable-pip-version-check',
     '--wheel-dir',
     staging
-  ], { stdio: 'pipe' });
+  ], {
+    env: { ...process.env, SOURCE_DATE_EPOCH: sourceDateEpoch },
+    stdio: 'pipe'
+  });
 
   const artifactNames = readdirSync(staging)
     .filter(file => file.endsWith('.tgz') || file.endsWith('.whl'))
@@ -73,10 +84,6 @@ try {
     throw new Error(`npm artifact is missing: ${npmPack.filename}`);
   }
 
-  const commit = execFileSync('git', ['rev-parse', 'HEAD'], {
-    cwd: root,
-    encoding: 'utf8'
-  }).trim();
   const artifacts = artifactNames.map(file => {
     const path = join(staging, file);
     return {
@@ -89,6 +96,7 @@ try {
     package: packageMetadata.name,
     version: packageMetadata.version,
     commit,
+    sourceDateEpoch,
     artifacts
   };
 

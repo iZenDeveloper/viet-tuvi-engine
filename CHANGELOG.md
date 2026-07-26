@@ -31,6 +31,8 @@
   installation, bundled-module check, and public API smoke.
 - Added a read-only manual workflow that builds commit-bound npm and Python
   artifacts with SHA-256 checksums without tagging or publishing.
+- Made wheel timestamps commit-derived for reproducible artifacts and upgraded
+  artifact upload to the current Node 24-based action.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping

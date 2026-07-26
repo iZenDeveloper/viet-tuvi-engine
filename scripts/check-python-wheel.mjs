@@ -13,6 +13,10 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const python = process.env.PYTHON ?? 'python3';
+const sourceDateEpoch = execFileSync('git', ['show', '-s', '--format=%ct', 'HEAD'], {
+  cwd: root,
+  encoding: 'utf8'
+}).trim();
 const temporaryRoot = mkdtempSync(join(tmpdir(), 'viet-tuvi-python-wheel-'));
 
 try {
@@ -39,7 +43,10 @@ try {
     '--disable-pip-version-check',
     '--wheel-dir',
     wheels
-  ], { stdio: 'pipe' });
+  ], {
+    env: { ...process.env, SOURCE_DATE_EPOCH: sourceDateEpoch },
+    stdio: 'pipe'
+  });
   const wheelFiles = readdirSync(wheels).filter(file => file.endsWith('.whl'));
   if (wheelFiles.length !== 1) {
     throw new Error(`Expected one Python wheel, found ${wheelFiles.length}`);
