@@ -57,6 +57,9 @@ Oracle submissions must validate against
 `schemas/oracle-fixture.schema.json`. Research datasets use
 `schemas/research-fixture.schema.json`.
 
+Run `npm run compare:fixture -- path/to/fixture.json` before submitting an
+oracle fixture or bundle.
+
 ## Pull Requests
 
 Keep changes narrowly scoped. A pull request changing calculation behavior

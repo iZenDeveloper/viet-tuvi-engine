@@ -23,6 +23,8 @@
   workflows with explicit evidence classification and privacy requirements.
 - Added a Draft 2020-12 oracle fixture schema covering single fixtures and
   bundles, and validated all thirty-six public comparison cases against it.
+- Upgraded the fixture comparison CLI with schema validation, bundle support,
+  stable JSON summaries, and distinct mismatch versus invalid-input exits.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping
