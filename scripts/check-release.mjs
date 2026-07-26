@@ -44,6 +44,9 @@ const pythonMetadata = readText('bindings/python/pyproject.toml');
 const pythonManifest = readJson('bindings/python/viet_tuvi_engine/_js/manifest.json');
 const wasmManifest = readJson('bindings/wasm/manifest.json');
 const license = readText('LICENSE');
+for (const requiredFile of ['README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md']) {
+  assert(existsSync(new URL(requiredFile, root)), `repository policy file is missing: ${requiredFile}`);
+}
 
 assert(existsSync(new URL('dist/index.js', root)), 'dist is missing; run npm run build:python');
 const { calculateTuVi, getMethodologyManifest } = await import('../dist/index.js');

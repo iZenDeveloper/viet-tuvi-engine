@@ -87,3 +87,11 @@ The WASM calendar kernel is in `bindings/wasm`. Import
 Implemented: Vietnamese astronomical lunar conversion, true-solar-time longitude/EoT correction, Mệnh/Thân, Cục via 60 Jiazi Na Yin, Tử Vi/Thiên Phủ major-star groups, common auxiliary stars, Tứ Hóa, palace-stem Phi Hóa, Tràng Sinh, Thái Tuế, Bác Sĩ, Đại Hạn, Tiểu Hạn, Lưu Niên, Lưu Nguyệt, and Lưu Nhật baseline rules.
 
 The `vietnamese` profile is the current rule set. `trung-chau`, `custom`, and broad school-level fixture validation are not yet complete. Phi Hóa and short-term timelines are baseline implementations whose conventions may vary by school; structured warnings expose these limits. The engine produces structured traditional-astrology data, not medical, legal, financial, or deterministic life advice.
+
+## Contributing Evidence
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before submitting rules or fixtures.
+Expert and calculator evidence must include its profile, exact settings,
+provenance, scope, and permission to redistribute the minimal structured
+values. AI-generated claims remain research material until independently
+verified.

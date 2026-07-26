@@ -19,6 +19,8 @@
   runtime version and rule identifiers for release consistency.
 - Added a release gate covering metadata parity, package entrypoints, Python
   snapshot hashes, WASM integrity, licensing, and npm tarball contents.
+- Added contribution, security, pull-request, bug-report, and expert-fixture
+  workflows with explicit evidence classification and privacy requirements.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping

@@ -1,0 +1,71 @@
+name: Calculation or integration bug
+description: Report a reproducible engine, schema, CLI, MCP, Python, WASM, or SVG problem.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove names and other identifying information. Use synthetic or consented birth data.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - Calculation core
+        - Calendar or true solar time
+        - Timeline
+        - JSON Schema
+        - CLI
+        - MCP
+        - Python binding
+        - WASM
+        - SVG
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Engine version or commit
+      placeholder: 0.1.0 or commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Minimal input
+      description: Provide the smallest structured input that reproduces the problem.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result and evidence
+      description: Include the applicable tradition, source, calculator settings, or rule citation.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Runtime environment
+      placeholder: Node 22 on macOS, Python 3.12, MCP host version, or browser
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Data and evidence confirmation
+      options:
+        - label: I removed personal identifiers and have permission to share the submitted data.
+          required: true
+        - label: I distinguished observed source output from my interpretation.
+          required: true
