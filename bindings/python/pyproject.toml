@@ -13,4 +13,4 @@ license = { text = "MIT" }
 where = ["."]
 
 [tool.setuptools.package-data]
-viet_tuvi_engine = ["_js/*.js", "_js/*.json"]
+viet_tuvi_engine = ["_js/*.js", "_js/*.json", "_js/stars/*.js"]

@@ -2,7 +2,10 @@
   "engineVersion": "0.1.0",
   "sha256": {
     "calendar.js": "c3db1874a16e255e88f6014343723b7d05bf963a385ee02073c7eedc77fbdbc7",
-    "index.js": "c1b870a97fc165b5fd7de076794b047b521146f2e571ccbf3ab6fed975fa6b0d",
+    "index.js": "64cc50ca09ec82a7b330a722b1f1877eade7f449f82d8138f201759c43a2532f",
+    "locations.js": "e66270faf938aae632a6a42ed4c90ae7de9ea838de1b88b1abc237cf4786d814",
+    "stars/major.js": "74fb721a9e76bb168e582972dc0a8e934efd911acf97a802ff29443bccec24cd",
+    "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
     "cli.js": "52b0394902c0d1ec84ed7af74c5d3f297f42b48682490675dbac27bd3d4cfc00",
     "mcp-server.js": "5b7ec48215e7c4425acea8423713a331e08d86a75414846de28984d64b902928"
   }

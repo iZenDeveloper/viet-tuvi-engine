@@ -1,6 +1,10 @@
 # Architecture
 
-`src/index.ts` is the TypeScript source of truth. Calculation functions are pure with respect to their input; no network, filesystem, locale, or system clock is consulted.
+The TypeScript core is a modular monolith. `src/index.ts` owns calculation
+orchestration and the stable public API, while `src/types.ts`,
+`src/locations.ts`, `src/calendar.ts`, and `src/stars/major.ts` own focused
+domain contracts and rule data. Calculation functions are pure with respect
+to their input; no network, filesystem, locale, or system clock is consulted.
 
 The stable boundary is `TuViChart`: palaces and stars use machine codes, while `metadata`, `audit`, and `capabilities` expose methodology and implementation status. SVG, MCP, prompt generation, and CLI are adapters over this same chart.
 

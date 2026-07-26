@@ -12,6 +12,16 @@ test('lunar new year fixtures and version manifest',()=>{
   assert.ok(manifest.rules.majorStars);
 });
 
+test('Python binding ships every generated JavaScript module',()=>{
+  const root=new URL('../bindings/python/viet_tuvi_engine/_js/',import.meta.url);
+  const manifest=JSON.parse(readFileSync(new URL('manifest.json',root)));
+  for(const modulePath of Object.keys(manifest.sha256)){
+    assert.doesNotThrow(()=>readFileSync(new URL(modulePath,root)),modulePath);
+  }
+  assert.ok(manifest.sha256['locations.js']);
+  assert.ok(manifest.sha256['stars/major.js']);
+});
+
 test('calendar boundary fixtures include month rollover and leap month',()=>{
   const fixtures=JSON.parse(readFileSync(new URL('../fixtures/calendar-boundaries.json',import.meta.url)));
   for(const fixture of fixtures) assert.deepEqual(solarToVietnameseLunar(...fixture.solar,7),fixture.lunar);
