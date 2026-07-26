@@ -5,6 +5,8 @@
 - Split public contracts, Vietnamese locations, Cục rules, star tables, and
   short-term limit rules into focused TypeScript modules while preserving the
   root API and Python parity.
+- Moved grounded prompt generation and SVG rendering into chart-only adapter
+  modules without changing their public exports.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping
   the twelve-branch offset before reducing modulo ten.
 - Bumped the calculation rule set to `vn-popular-0.2` and the Cục audit rule

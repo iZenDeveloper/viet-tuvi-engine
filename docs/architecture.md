@@ -6,8 +6,10 @@ orchestration and the stable public API, while `src/types.ts`,
 domain contracts and rule data. `src/rules/cuc.ts` owns the Five Tiger Escape,
 60 Jiazi Na Yin, and Five Element Bureau calculation. Auxiliary-star and
 transformation tables live under `src/stars`, while short-term limit rules
-live under `src/timeline`. Calculation functions are pure with respect to
-their input; no network, filesystem, locale, or system clock is consulted.
+live under `src/timeline`. Grounded prompts and SVG rendering live under
+`src/prompts` and `src/svg` as adapters over `TuViChart`. Calculation
+functions are pure with respect to their input; no network, filesystem,
+locale, or system clock is consulted.
 
 The stable boundary is `TuViChart`: palaces and stars use machine codes, while `metadata`, `audit`, and `capabilities` expose methodology and implementation status. SVG, MCP, prompt generation, and CLI are adapters over this same chart.
 

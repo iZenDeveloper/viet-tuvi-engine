@@ -1,11 +1,13 @@
 import { solarToVietnameseLunar } from './calendar.js';
 import { findCity, listVietnamCities, vietnamCities } from './locations.js';
+import { createGroundedPrompt } from './prompts/grounded.js';
 import { calculateCuc, menhStem, stems } from './rules/cuc.js';
 import { bacSiCycle, groupStarBranch, khoiVietBranches, lifeCycle, lifeStart, locTonBranch, thaiTueCycle } from './stars/auxiliary.js';
 import { listMajorStars, majorMetadata, majors, majorStarBranches, tuViBranch } from './stars/major.js';
 import { hoaByCan } from './stars/transformations.js';
+import { renderSvg } from './svg/render.js';
 import { minorLimitStart } from './timeline/rules.js';
-export { listMajorStars, listVietnamCities, vietnamCities };
+export { createGroundedPrompt, listMajorStars, listVietnamCities, renderSvg, vietnamCities };
 const branches = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
 const palaceNames = ['Mệnh', 'Phụ Mẫu', 'Phúc Đức', 'Điền Trạch', 'Quan Lộc', 'Nô Bộc', 'Thiên Di', 'Tật Ách', 'Tài Bạch', 'Tử Tức', 'Phu Thê', 'Huynh Đệ'];
 function parseLocal(input) {
@@ -348,44 +350,6 @@ export function compatibility(a, b) {
         ],
         evidence: [{ code: 'menh-branch-relation', value: branchRelation }, { code: 'cuc-element-relation', value: elementRelation }],
         methodology: 'structural baseline; not predictive advice' };
-}
-export function createGroundedPrompt(chart, locale = 'vi') {
-    const facts = chart.facts.map(f => `${f.code}: ${f.text[locale]} [${f.evidence.join(',')}]`).join('\n');
-    const instruction = locale === 'vi'
-        ? 'Diễn giải có điều kiện, chỉ dùng bằng chứng bên dưới; trích dẫn stable code và nêu rõ giới hạn.'
-        : 'Interpret conditionally using only the evidence below; cite stable codes and state limitations.';
-    return { system: instruction, evidence: { engine: chart.metadata.engine, version: chart.metadata.version,
-            cuc: chart.cuc.code, palaces: facts, audit: chart.audit, warnings: chart.warnings } };
-}
-export function renderSvg(chart) {
-    const size = 720, cell = 180;
-    const positions = [[0, 0], [1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [3, 3], [2, 3], [1, 3], [0, 3], [0, 2], [0, 1]];
-    const escape = (value) => value.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
-    const starNames = new Map(chart.stars.map(s => [s.code, s.nameVi]));
-    const cells = chart.palaces.map(p => {
-        const [col, row] = positions[p.index], x = col * cell, y = row * cell;
-        const names = p.stars.map(code => starNames.get(code) ?? code);
-        const lines = [];
-        let line = '';
-        for (const name of names) {
-            const candidate = line ? `${line}, ${name}` : name;
-            if (candidate.length > 19 && line) {
-                lines.push(line);
-                line = name;
-            }
-            else
-                line = candidate;
-        }
-        if (line)
-            lines.push(line);
-        const starText = lines.slice(0, 8).map((value, i) => `<tspan x="10" dy="${i === 0 ? 0 : 13}">${escape(value)}</tspan>`).join('');
-        return `<g transform="translate(${x},${y})"><rect width="180" height="180" fill="${p.isMenh ? '#eef6ff' : '#fff'}" stroke="#1f2937"/>` +
-            `<text x="10" y="24" font-family="sans-serif" font-size="16" font-weight="bold">${escape(p.nameVi)}</text>` +
-            `<text x="10" y="46" font-family="sans-serif" font-size="13">${escape(p.branch)}${p.isThan ? ' · Thân' : ''}</text>` +
-            `<text x="10" y="72" font-family="sans-serif" font-size="9.5">${starText || '<tspan>Không có sao</tspan>'}</text></g>`;
-    }).join('');
-    const center = `<g transform="translate(180,180)"><rect width="360" height="360" fill="#f8fafc" stroke="#1f2937"/><text x="180" y="145" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="bold">Lá số Tử Vi</text><text x="180" y="180" text-anchor="middle" font-family="sans-serif" font-size="16">${escape(chart.cuc.nameVi)}</text><text x="180" y="210" text-anchor="middle" font-family="sans-serif" font-size="13">Rule set ${escape(chart.metadata.ruleSetVersion)}</text></g>`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" role="img" aria-labelledby="title desc"><title id="title">Lá số Tử Vi</title><desc id="desc">Mười hai cung bao quanh phần thông tin trung tâm, trình bày các sao trong từng cung</desc>${center}${cells}</svg>`;
 }
 export function handleMcpMessage(message) {
     const m = message;
