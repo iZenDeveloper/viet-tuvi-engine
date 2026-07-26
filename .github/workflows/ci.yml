@@ -38,7 +38,7 @@ jobs:
           PYTHONPATH: bindings/python
         run: |
           python - <<'PY'
-          from viet_tuvi_engine import calculate, capabilities, grounded_prompt, render_svg, timeline
+          from viet_tuvi_engine import calculate, capabilities, grounded_prompt, render_svg, timeline, validate
           input_data = {
               "localDateTime": "1990-05-17T14:30:00",
               "timezoneOffsetMinutes": 420,
@@ -48,6 +48,7 @@ jobs:
           chart = calculate(input_data)
           assert len(chart["palaces"]) == 12
           assert capabilities()["engine"] == "viet-tuvi-engine"
+          assert validate(input_data)["valid"] is True
           assert len(timeline(input_data)["timeline"]["daiHan"]) == 12
           assert grounded_prompt(chart)["evidence"]["engine"] == "viet-tuvi-engine"
           assert "<svg" in render_svg(chart)

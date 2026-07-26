@@ -1,14 +1,15 @@
+import { compatibility } from './analysis/compatibility.js';
+import { sensitivity } from './analysis/sensitivity.js';
 import { calculateTuVi } from './calculate.js';
-import { branches } from './domain.js';
+import { compareChartFixture } from './fixtures/compare.js';
 import { listVietnamCities, vietnamCities } from './locations.js';
 import { capabilities, getEngineCapabilities, getMethodologyManifest, methodologyResourceText } from './methodology.js';
 import { createGroundedPrompt } from './prompts/grounded.js';
 import { listMajorStars } from './stars/major.js';
 import { renderSvg } from './svg/render.js';
-import type {
-  CalculateInput,
-  TuViChart
-} from './types.js';
+import { calculateTimeline } from './timeline/calculate.js';
+import type { TuViChart } from './types.js';
+import { engineErrorCode, validateInput } from './validation.js';
 
 export type {
   CalculateInput,
@@ -24,119 +25,24 @@ export type {
 } from './types.js';
 export {
   calculateTuVi,
+  calculateTimeline,
   capabilities,
+  compareChartFixture,
+  compatibility,
   createGroundedPrompt,
   getEngineCapabilities,
   getMethodologyManifest,
   listMajorStars,
   listVietnamCities,
   renderSvg,
+  sensitivity,
+  validateInput,
   vietnamCities
 };
 
 export function serializeChart(chart: TuViChart): string {
   return JSON.stringify(chart);
 }
-export function compareChartFixture(input:CalculateInput,expected:Partial<TuViChart>){
-  const actual=calculateTuVi(input),diffs:{path:string;expected:unknown;actual:unknown}[]=[];
-  const check=(path:string,want:unknown,got:unknown)=>{if(JSON.stringify(want)!==JSON.stringify(got))diffs.push({path,expected:want,actual:got});};
-  if(expected.cuc?.code!==undefined)check('cuc.code',expected.cuc.code,actual.cuc.code);
-  if(expected.palaces) for(const palace of expected.palaces){
-    const got=actual.palaces.find(p=>p.index===palace.index);
-    if(!got)diffs.push({path:`palaces[${palace.index}]`,expected:palace,actual:undefined});
-    else {
-      if(palace.branch!==undefined)check(`palaces[${palace.index}].branch`,palace.branch,got.branch);
-      if(palace.isMenh!==undefined)check(`palaces[${palace.index}].isMenh`,palace.isMenh,got.isMenh);
-      if(palace.isThan!==undefined)check(`palaces[${palace.index}].isThan`,palace.isThan,got.isThan);
-      if(palace.stars!==undefined)check(`palaces[${palace.index}].stars`,[...palace.stars].sort(),[...got.stars].sort());
-    }
-  }
-  if(expected.stars) for(const star of expected.stars){
-    const got=actual.stars.find(s=>s.code===star.code);
-    if(!got)diffs.push({path:`stars.${star.code}`,expected:star,actual:undefined});
-    else if(star.palaceIndex!==undefined)check(`stars.${star.code}.palaceIndex`,star.palaceIndex,got.palaceIndex);
-  }
-  return {match:diffs.length===0,diffs,actual,methodology:'stable-field fixture comparison'};
-}
-function engineErrorCode(error:unknown){
-  const message=error instanceof Error?error.message:String(error);
-  if(message.includes('localDateTime'))return'input.local-date-time';
-  if(message.includes('timezoneOffsetMinutes'))return'input.timezone-offset';
-  if(message.includes('gender'))return'input.gender';
-  if(message.includes('trueSolarTime'))return'input.true-solar-time';
-  if(message.includes('location.longitude'))return'input.location.longitude';
-  if(message.includes('location.city'))return'input.location.city';
-  if(message.includes('location'))return'input.location';
-  if(message.includes('asOfDate'))return'input.as-of-date';
-  if(message.includes('asOfYear'))return'input.as-of-year';
-  if(message.includes('include.'))return'input.include';
-  if(message.includes('tradition'))return'input.tradition';
-  if(message.includes('not supported'))return'input.additional-property';
-  return'engine.invalid-input';
-}
-export function validateInput(input: unknown) {
-  try {
-    calculateTuVi(input as CalculateInput);
-    return {valid:true,issues:[] as {code:string;message:string}[]};
-  } catch(error) {
-    return {valid:false,issues:[{code:engineErrorCode(error),message:error instanceof Error?error.message:'Invalid input'}]};
-  }
-}
-
-export function sensitivity(input: CalculateInput) {
-  const base = calculateTuVi(input);
-  const datePart=input.localDateTime.slice(0,10);
-  const hourBranches=Array.from({length:12},(_,branch)=>{
-    const hour=branch===0?0:branch*2;
-    const chart=calculateTuVi({...input,localDateTime:`${datePart}T${String(hour).padStart(2,'0')}:00:00`});
-    return {hourBranch:branches[branch],localHour:hour,menhBranch:chart.palaces[0].branch,
-      thanPalace:chart.palaces.find(p=>p.isThan)?.code??'unknown',cuc:chart.cuc.code,
-      majorStarsAtMenh:chart.stars.filter(s=>s.kind==='major'&&s.palaceIndex===0).map(s=>s.code)};
-  });
-  const variants = [-1, 0, 1].map(delta => {
-    const d = new Date(`${input.localDateTime}Z`);
-    d.setUTCHours(d.getUTCHours() + delta);
-    const chart = calculateTuVi({...input, localDateTime: d.toISOString().slice(0,19)});
-    return { deltaHours: delta, menhBranch: chart.palaces[0].branch, palaceIndex: chart.palaces[0].index,
-      changed: chart.palaces[0].branch !== base.palaces[0].branch };
-  });
-  const baselineSignature=`${base.palaces[0].branch}|${base.cuc.code}|${base.stars.filter(s=>s.kind==='major'&&s.palaceIndex===0).map(s=>s.code).join(',')}`;
-  const stableCount=hourBranches.filter(v=>`${v.menhBranch}|${v.cuc}|${v.majorStarsAtMenh.join(',')}`===baselineSignature).length;
-  return { baseline: { menhBranch: base.palaces[0].branch, palaceIndex: base.palaces[0].index },
-    variants,hourBranches,stabilityScore:stableCount/12,
-    methodology:'adjacent-hour perturbation plus twelve birth-hour branch sweep' };
-}
-
-export function calculateTimeline(input:CalculateInput){
-  const chart=calculateTuVi({...input,include:{...input.include,daiHan:true,tieuHan:true,luuNien:true,...(input.asOfDate?{luuNguyet:true,luuNhat:true}:{})}});
-  return {
-    input:chart.input,timeline:chart.timeline,
-    audit:chart.audit.filter(entry=>entry.rule.includes('han')||entry.rule.startsWith('luu-')),
-    warnings:chart.warnings.filter(warning=>warning.code.startsWith('timeline.')),
-    metadata:{engine:chart.metadata.engine,version:chart.metadata.version,ruleSetVersion:chart.metadata.ruleSetVersion}
-  };
-}
-
-export function compatibility(a: CalculateInput, b: CalculateInput) {
-  const left = calculateTuVi(a), right = calculateTuVi(b);
-  const li=branches.indexOf(left.palaces[0].branch),ri=branches.indexOf(right.palaces[0].branch);
-  const distance=Math.min((li-ri+12)%12,(ri-li+12)%12);
-  const lucHop=[[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]].some(([x,y])=>(li===x&&ri===y)||(li===y&&ri===x));
-  const branchRelation=li===ri?'same':distance===4?'tam-hop':lucHop?'luc-hop':distance===6?'xung':'neutral';
-  const branchPoints={same:8,'tam-hop':15,'luc-hop':12,xung:-18,neutral:0}[branchRelation];
-  const elements=['moc','hoa','tho','kim','thuy'],le=elements.indexOf(left.cuc.element),re=elements.indexOf(right.cuc.element);
-  const elementRelation=le===re?'same':(le+1)%5===re||(re+1)%5===le?'productive':(le+2)%5===re||(re+2)%5===le?'controlling':'neutral';
-  const elementPoints={same:10,productive:14,controlling:-12,neutral:0}[elementRelation];
-  const score=Math.max(0,Math.min(100,60+branchPoints+elementPoints));
-  return { score, grade: score >= 75 ? 'favorable' : score >= 50 ? 'mixed' : 'challenging',
-    aspects:[
-      {code:'compatibility.menh-branch',relation:branchRelation,score:branchPoints,evidence:[`left:${left.palaces[0].branch}`,`right:${right.palaces[0].branch}`]},
-      {code:'compatibility.cuc-element',relation:elementRelation,score:elementPoints,evidence:[`left:${left.cuc.element}`,`right:${right.cuc.element}`]}
-    ],
-    evidence: [{code:'menh-branch-relation', value:branchRelation}, {code:'cuc-element-relation', value:elementRelation}],
-    methodology: 'structural baseline; not predictive advice' };
-}
-
 export function handleMcpMessage(message: unknown): Record<string, unknown>|null {
   const m = message as { id?: string|number; method?: string; params?: any };
   if(m?.id===undefined&&m?.method?.startsWith('notifications/')) return null;

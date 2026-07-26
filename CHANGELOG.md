@@ -13,6 +13,10 @@
   in preparation for a standalone calculation orchestrator.
 - Moved `calculateTuVi` into a standalone orchestrator module and reduced
   `src/index.ts` to the stable public facade and higher-level APIs.
+- Split fixture comparison, validation, sensitivity, compatibility, and
+  timeline views into acyclic feature modules over the calculator.
+- Added the missing Python `validate` helper over the existing MCP
+  `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping
   the twelve-branch offset before reducing modulo ten.
 - Bumped the calculation rule set to `vn-popular-0.2` and the Cục audit rule

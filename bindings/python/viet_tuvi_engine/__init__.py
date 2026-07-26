@@ -9,6 +9,7 @@ from .client import (
     render_svg,
     sensitivity,
     timeline,
+    validate,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     "render_svg",
     "sensitivity",
     "timeline",
+    "validate",
 ]

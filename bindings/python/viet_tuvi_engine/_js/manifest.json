@@ -1,11 +1,14 @@
 {
   "engineVersion": "0.1.0",
   "sha256": {
+    "analysis/compatibility.js": "d29a721d75d44c3d5bf32e89d7b859aef6e3a6ce2b38988ca5a2f35eb394a024",
+    "analysis/sensitivity.js": "777b750a6969403bd51403fc864075ea0359b72f6ade691b742bcd94bd2d15de",
     "calculate.js": "4563954c876712fb4cebeb13e26098c419f2b8b2a6d769ca9ff98cbe027585f8",
     "calendar.js": "c3db1874a16e255e88f6014343723b7d05bf963a385ee02073c7eedc77fbdbc7",
     "cli.js": "52b0394902c0d1ec84ed7af74c5d3f297f42b48682490675dbac27bd3d4cfc00",
     "domain.js": "2fb0b1aa1a1d524ef4211aaa67bd372694aa8d2d14cafaf1df21223d145e89da",
-    "index.js": "8d6a188161a1bd2798906997b46a2f49a982a69aa1b4040f08f734cf4f6549b0",
+    "fixtures/compare.js": "5df5a72ee110815da29a2c048d2a81126e7264ab3feb7f9aca805daee0c4e970",
+    "index.js": "069fc9482f5f4c59d1a1822d95ab93a95b1ed87d0b1c23dc7effcdb10620108e",
     "locations.js": "e66270faf938aae632a6a42ed4c90ae7de9ea838de1b88b1abc237cf4786d814",
     "mcp-server.js": "5b7ec48215e7c4425acea8423713a331e08d86a75414846de28984d64b902928",
     "methodology.js": "32003973ac82edc04d12a0f6daa7689d0c4747378cdbaa3877fd0af6b353c290",
@@ -17,8 +20,10 @@
     "stars/transformations.js": "e9fe166f00ed4d851682f8744f8900548f1836988f095ecb97ff9f1a5df5a84f",
     "svg/render.js": "bcd6da7c83a628cd530f96431ffe52f0ad3139bbc5604103442d75d4c60d00c6",
     "time.js": "0e64b9bd6921b24c1090c93059dd7f6ad955f8e22581fd9b7da90877bf66db94",
+    "timeline/calculate.js": "319ca7d553069ef8f44edfe3c4c44d868eec807289473c4698cc7c99a03878af",
     "timeline/rules.js": "194979af6f132a19d90330905e756f5cd9e9375d9c417b00837486956e8b8500",
     "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "validation.js": "dab4b5cb00f343a751c1bdd0135b8666492e6bf7e56415922d12edc43010ccfd",
     "wasm.js": "2e3ba4cdf86b974d31787d3e9bdc5836a0035d56a2f95e86902ac72e7e0d83b0"
   }
 }

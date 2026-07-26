@@ -53,6 +53,10 @@ def capabilities() -> dict[str, Any]:
     return _tool("capabilities", {})
 
 
+def validate(input_data: dict[str, Any]) -> dict[str, Any]:
+    return _tool("validate-input", input_data)
+
+
 def timeline(input_data: dict[str, Any]) -> dict[str, Any]:
     return _tool("timeline", input_data)
 
