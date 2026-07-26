@@ -2,13 +2,37 @@
   "name": "viet-tuvi-engine",
   "version": "0.1.0",
   "description": "Deterministic, offline-first Vietnamese Tu Vi calculation engine",
+  "keywords": [
+    "tu-vi",
+    "zi-wei-dou-shu",
+    "vietnamese-astrology",
+    "astrology",
+    "mcp"
+  ],
+  "homepage": "https://github.com/iZenDeveloper/viet-tuvi-engine#readme",
+  "bugs": {
+    "url": "https://github.com/iZenDeveloper/viet-tuvi-engine/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iZenDeveloper/viet-tuvi-engine.git"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {"types": "./dist/index.d.ts", "import": "./dist/index.js"},
-    "./calendar": {"types": "./dist/calendar.d.ts", "import": "./dist/calendar.js"},
-    "./wasm": {"types": "./dist/wasm.d.ts", "import": "./dist/wasm.js"},
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./calendar": {
+      "types": "./dist/calendar.d.ts",
+      "import": "./dist/calendar.js"
+    },
+    "./wasm": {
+      "types": "./dist/wasm.d.ts",
+      "import": "./dist/wasm.js"
+    },
     "./schema/chart": "./schemas/chart.schema.json",
     "./schema/input": "./schemas/calculate-input.schema.json",
     "./schema/research-fixture": "./schemas/research-fixture.schema.json",
@@ -27,7 +51,9 @@
     "README.md",
     "CHANGELOG.md"
   ],
-  "engines": {"node": ">=20"},
+  "engines": {
+    "node": ">=20"
+  },
   "bin": {
     "viet-tuvi": "./dist/cli.js",
     "viet-tuvi-mcp": "./dist/mcp-server.js"
@@ -41,6 +67,7 @@
     "mcp:stdio": "npm run build && node dist/mcp-server.js"
   },
   "devDependencies": {
+    "@types/node": "^22.20.1",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "assemblyscript": "^0.27.31",
