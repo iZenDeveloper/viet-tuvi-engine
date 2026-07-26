@@ -15,3 +15,12 @@ Direct helpers are available for `calculate`, `timeline`, `sensitivity`,
 `compatibility`, `grounded_prompt`, `render_svg`, `compare_fixture`, and
 `capabilities`. Use `validate` to check an input without raising an engine
 calculation error. `mcp_request` remains available for raw MCP access.
+
+Build, install, and smoke-test an isolated wheel with:
+
+```sh
+npm run check:python-wheel
+```
+
+The wheel delegates to its bundled JavaScript snapshot and requires Node.js
+20 or newer at runtime.

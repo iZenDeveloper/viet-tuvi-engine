@@ -48,10 +48,12 @@ Run the same release gate used by CI:
 
 ```sh
 npm run check:release
+npm run check:python-wheel
 ```
 
 It verifies npm, runtime, MCP, and Python version parity; package entrypoints;
 the Python JavaScript snapshot; the WASM integrity manifest; MIT licensing;
 and the npm tarball contents. It also installs the tarball in an isolated
 temporary consumer project and runs the public imports and binaries. It does
-not create a tag or publish a package.
+not create a tag or publish a package. The Python wheel command performs a
+separate PEP 517 build, isolated installation, and binding smoke test.

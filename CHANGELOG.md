@@ -27,6 +27,8 @@
   stable JSON summaries, and distinct mismatch versus invalid-input exits.
 - Added an isolated tarball consumer smoke covering package subpaths, schemas,
   WASM execution, CLI, and MCP binaries before release.
+- Replaced the source-tree Python smoke with an isolated PEP 517 wheel build,
+  installation, bundled-module check, and public API smoke.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping

@@ -8,6 +8,7 @@
 - [x] CLI and MCP smoke tests
 - [x] Python binding parity
 - [x] Standalone Python wheel bundles the JavaScript snapshot
+- [x] Isolated Python wheel build, installation, and API smoke test
 - [x] Browser demo desktop/mobile verification
 - [x] npm package dry-run
 - [x] Automated release consistency and artifact-integrity gate
