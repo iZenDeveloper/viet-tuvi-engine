@@ -9,6 +9,8 @@
   modules without changing their public exports.
 - Isolated methodology/capability metadata and palace-relation construction
   while preserving chart ordering and provenance output.
+- Isolated shared palace/branch constants and deterministic local-time helpers
+  in preparation for a standalone calculation orchestrator.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping
   the twelve-branch offset before reducing modulo ten.
 - Bumped the calculation rule set to `vn-popular-0.2` and the Cục audit rule

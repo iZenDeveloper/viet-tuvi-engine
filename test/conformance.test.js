@@ -22,6 +22,7 @@ test('Python binding ships every generated JavaScript module',()=>{
   }
   assert.ok(manifest.sha256['locations.js']);
   assert.ok(manifest.sha256['methodology.js']);
+  assert.ok(manifest.sha256['domain.js']);
   assert.ok(manifest.sha256['prompts/grounded.js']);
   assert.ok(manifest.sha256['relations.js']);
   assert.ok(manifest.sha256['rules/cuc.js']);
@@ -30,6 +31,7 @@ test('Python binding ships every generated JavaScript module',()=>{
   assert.ok(manifest.sha256['stars/transformations.js']);
   assert.ok(manifest.sha256['timeline/rules.js']);
   assert.ok(manifest.sha256['svg/render.js']);
+  assert.ok(manifest.sha256['time.js']);
 });
 
 test('calendar boundary fixtures include month rollover and leap month',()=>{

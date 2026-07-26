@@ -3,7 +3,8 @@
   "sha256": {
     "calendar.js": "c3db1874a16e255e88f6014343723b7d05bf963a385ee02073c7eedc77fbdbc7",
     "cli.js": "52b0394902c0d1ec84ed7af74c5d3f297f42b48682490675dbac27bd3d4cfc00",
-    "index.js": "682bc2a73caf2531441be81f853d8a0b44e27dfe6579a959f94fe5e33fedffb2",
+    "domain.js": "2fb0b1aa1a1d524ef4211aaa67bd372694aa8d2d14cafaf1df21223d145e89da",
+    "index.js": "35a0d7fe2fa21a2191f7df2ed4da0bd008714507ee2ae269f7dff11fd5994afd",
     "locations.js": "e66270faf938aae632a6a42ed4c90ae7de9ea838de1b88b1abc237cf4786d814",
     "mcp-server.js": "5b7ec48215e7c4425acea8423713a331e08d86a75414846de28984d64b902928",
     "methodology.js": "32003973ac82edc04d12a0f6daa7689d0c4747378cdbaa3877fd0af6b353c290",
@@ -14,6 +15,7 @@
     "stars/major.js": "74fb721a9e76bb168e582972dc0a8e934efd911acf97a802ff29443bccec24cd",
     "stars/transformations.js": "e9fe166f00ed4d851682f8744f8900548f1836988f095ecb97ff9f1a5df5a84f",
     "svg/render.js": "bcd6da7c83a628cd530f96431ffe52f0ad3139bbc5604103442d75d4c60d00c6",
+    "time.js": "0e64b9bd6921b24c1090c93059dd7f6ad955f8e22581fd9b7da90877bf66db94",
     "timeline/rules.js": "194979af6f132a19d90330905e756f5cd9e9375d9c417b00837486956e8b8500",
     "types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
     "wasm.js": "2e3ba4cdf86b974d31787d3e9bdc5836a0035d56a2f95e86902ac72e7e0d83b0"

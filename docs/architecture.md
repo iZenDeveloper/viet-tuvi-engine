@@ -9,8 +9,9 @@ transformation tables live under `src/stars`, while short-term limit rules
 live under `src/timeline`. Grounded prompts and SVG rendering live under
 `src/prompts` and `src/svg` as adapters over `TuViChart`. Calculation
 methodology/capabilities and palace relations have dedicated pure modules.
-Functions are pure with respect to their input; no network, filesystem,
-locale, or system clock is consulted.
+Shared domain constants and local-time normalization are isolated from the
+calculator. Functions are pure with respect to their input; no network,
+filesystem, locale, or system clock is consulted.
 
 The stable boundary is `TuViChart`: palaces and stars use machine codes, while `metadata`, `audit`, and `capabilities` expose methodology and implementation status. SVG, MCP, prompt generation, and CLI are adapters over this same chart.
 

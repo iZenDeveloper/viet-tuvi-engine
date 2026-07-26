@@ -1,4 +1,5 @@
 import { solarToVietnameseLunar, type LunarDate } from './calendar.js';
+import { branches, palaceNames } from './domain.js';
 import { findCity, listVietnamCities, vietnamCities } from './locations.js';
 import { capabilities, getEngineCapabilities, getMethodologyManifest, methodologyResourceText } from './methodology.js';
 import { createGroundedPrompt } from './prompts/grounded.js';
@@ -16,6 +17,7 @@ import {
 import { listMajorStars, majorMetadata, majors, majorStarBranches, tuViBranch } from './stars/major.js';
 import { hoaByCan } from './stars/transformations.js';
 import { renderSvg } from './svg/render.js';
+import { equationOfTimeMinutes, hourBranch, parseLocal } from './time.js';
 import { minorLimitStart } from './timeline/rules.js';
 import type {
   CalculateInput,
@@ -49,28 +51,6 @@ export {
   renderSvg,
   vietnamCities
 };
-
-const branches = ['Tý','Sửu','Dần','Mão','Thìn','Tỵ','Ngọ','Mùi','Thân','Dậu','Tuất','Hợi'];
-const palaceNames = ['Mệnh','Phụ Mẫu','Phúc Đức','Điền Trạch','Quan Lộc','Nô Bộc','Thiên Di','Tật Ách','Tài Bạch','Tử Tức','Phu Thê','Huynh Đệ'];
-function parseLocal(input:CalculateInput){
-  if(!Number.isInteger(input.timezoneOffsetMinutes)||input.timezoneOffsetMinutes < -840||input.timezoneOffsetMinutes > 840) throw new Error('timezoneOffsetMinutes must be an integer from -840 to 840');
-  const match = input.localDateTime.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/);
-  if (!match) throw new Error('localDateTime must be ISO-8601 local wall-clock');
-  const [,y,mo,day,hh,mm,ss='0',ms='0'] = match;
-  const wall = Date.UTC(+y,+mo-1,+day,+hh,+mm,+ss,+(ms+'00').slice(0,3));
-  const check=new Date(wall);
-  if(check.getUTCFullYear()!==+y||check.getUTCMonth()!==+mo-1||check.getUTCDate()!==+day||check.getUTCHours()!==+hh||check.getUTCMinutes()!==+mm||check.getUTCSeconds()!==+ss) throw new Error('localDateTime contains an invalid calendar date or time');
-  const d = new Date(wall);
-  if (Number.isNaN(d.getTime())) throw new Error('Invalid localDateTime');
-  return d;
-}
-function hourBranch(d:Date){ return Math.floor(((d.getUTCHours()+1)%24)/2); }
-function equationOfTimeMinutes(d:Date) {
-  const start = Date.UTC(d.getUTCFullYear(),0,1);
-  const day = Math.floor((d.getTime()-start)/86400000)+1;
-  const b = 2*Math.PI*(day-81)/364;
-  return 9.87*Math.sin(2*b)-7.53*Math.cos(b)-1.5*Math.sin(b);
-}
 
 export function calculateTuVi(input: CalculateInput): TuViChart {
   if (!input||typeof input!=='object'||typeof input.localDateTime!=='string'||!input.localDateTime||!input.gender) throw new Error('localDateTime and gender are required');
