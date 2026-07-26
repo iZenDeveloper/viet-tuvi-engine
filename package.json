@@ -71,6 +71,7 @@
     "build": "tsc -p tsconfig.json",
     "build:wasm": "asc assembly/calendar.ts --target release && node scripts/build-wasm-manifest.mjs",
     "build:python": "npm run build && node scripts/build-python-binding.mjs",
+    "build:release-artifacts": "npm test && npm run check:release && npm run check:python-wheel && node scripts/build-release-artifacts.mjs",
     "check:python-wheel": "npm run build:python && node scripts/check-python-wheel.mjs",
     "check:release": "npm run build:wasm && npm run build:python && node scripts/check-release.mjs",
     "test": "npm run build:wasm && npm run build:python && node --test test/*.test.js",

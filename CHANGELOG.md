@@ -29,6 +29,8 @@
   WASM execution, CLI, and MCP binaries before release.
 - Replaced the source-tree Python smoke with an isolated PEP 517 wheel build,
   installation, bundled-module check, and public API smoke.
+- Added a read-only manual workflow that builds commit-bound npm and Python
+  artifacts with SHA-256 checksums without tagging or publishing.
 - Added the missing Python `validate` helper over the existing MCP
   `validate-input` tool.
 - Fixed Five Tiger Escape palace stems for Mệnh at Tý and Sửu by wrapping

@@ -7,3 +7,4 @@ __pycache__/
 .venv/
 bindings/python/build/
 bindings/python/*.egg-info/
+release-artifacts/

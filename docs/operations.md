@@ -57,3 +57,17 @@ and the npm tarball contents. It also installs the tarball in an isolated
 temporary consumer project and runs the public imports and binaries. It does
 not create a tag or publish a package. The Python wheel command performs a
 separate PEP 517 build, isolated installation, and binding smoke test.
+
+## Release artifacts
+
+Build reviewable npm and Python artifacts without publishing:
+
+```sh
+npm run build:release-artifacts
+```
+
+The command writes versioned files under `release-artifacts/` and includes a
+commit-bound `release-manifest.json` plus `SHA256SUMS`. It refuses to overwrite
+a non-empty artifact directory. The manual GitHub `release-artifacts` workflow
+runs the same command with read-only repository permissions and retains its
+uploaded artifact for 14 days. It cannot create tags or publish packages.

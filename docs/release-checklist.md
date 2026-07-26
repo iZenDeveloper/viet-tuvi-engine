@@ -13,6 +13,7 @@
 - [x] npm package dry-run
 - [x] Automated release consistency and artifact-integrity gate
 - [x] Isolated npm tarball installation and consumer smoke test
+- [x] Manual read-only workflow for reviewable npm and Python artifacts
 - [x] Versioned audit and methodology manifest
 - [x] Provenance roles for external research
 - [x] Public-calculator comparison oracle with captured options and retrieval date
